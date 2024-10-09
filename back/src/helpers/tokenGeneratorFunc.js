@@ -1,4 +1,3 @@
-/* 
 import jwt from "jsonwebtoken";
 
 export function generateToken(xPayload) {
@@ -24,4 +23,3 @@ export function verifyToken(token) {
     });
   });
 }
- */
