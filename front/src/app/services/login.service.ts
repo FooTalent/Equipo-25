@@ -8,9 +8,8 @@ import { LoginCredentials } from '../interfaces/login-credentials';
   providedIn: 'root',
 })
 export class LoginService {
-  private http = inject(HttpClient);
-
   constructor() {}
+  httpClient = inject(HttpClient);
   router = inject(Router);
   toastrService = inject(ToastrService);
 
@@ -19,19 +18,19 @@ export class LoginService {
   API_URL = 'http://localhost:3000/login';
 
   login(userCredentials: LoginCredentials) {
-    return this.http.post(this.API_URL, userCredentials);
+    return this.httpClient.post(this.API_URL, userCredentials);
   }
 
   validateToken(token: string) {
-    return this.http.get(`${this.API_URL}/${token}`);
+    return this.httpClient.get(`${this.API_URL}/${token}`);
   }
 
   isLoged() {
     if (localStorage.getItem('token')) {
-      console.log('Is loged');
+      /* console.log("Is loged") */
       return true;
     } else {
-      console.log("Isn't loged");
+      /* console.log("Isn't loged") */
       return false;
     }
   }
@@ -39,6 +38,6 @@ export class LoginService {
   logout() {
     this.toastrService.info('Sesión cerrada');
     localStorage.removeItem('token');
-    this.router.navigate(['/']); //Redirigir al landing
+    this.router.navigate(['/']); //Redirigir Inicio
   }
 }
