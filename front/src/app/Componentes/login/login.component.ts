@@ -56,7 +56,7 @@ export class LoginComponent {
       }
     } else {
       /* console.log("Empty form filds"); */
-      this.toastrService.warning('Capo de credenciales vacío');
+      this.toastrService.warning('Campo de credenciales vacío');
     }
   }
 }

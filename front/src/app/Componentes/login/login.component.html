@@ -1,101 +1,51 @@
-<!-- 
- ...........................................................................
- ...........................................................................
- ............................. USER DATA FORM ..............................
- ...........................................................................
- ........................................................................... 
- -->
-
-<!-- <form class="my-color-white" (ngSubmit)="handleLoginSubmit()">
-  <div><h5>¡Inicia Sesión!</h5></div>
-  <div class="row py-4">
-    <div class="mb-3">
-      <label for="email" class="form-label">Correo</label>
-      <input
-        type="email"
-        class="form-control width-string"
-        id="email"
-        placeholder="Escribe tu correo electrónico"
-        name="email"
-        required
-        [(ngModel)]="email"
-      />
-      <br />
-    </div>
-
-    <div class="mb-3">
-      <label for="password" class="form-label">Contraseña</label>
-      <input
-        type="text"
-        class="form-control width-number"
-        id="password"
-        placeholder="* * * * * *"
-        name="password"
-        [(ngModel)]="password"
-      />
-    </div>
-
-    <button
-      type="submit"
-      class="btn bg-my-color col-12 my-color-black my-bg-color-main-light my-border-radius width"
-    >
-      Log
-    </button>
-  </div>
-</form> -->
-
-<!-- <form [formGroup]="loginCredentialsData" (ngSubmit)="handleSubmit()">
-  <input type="text" placeholder="Usuario" formControlName="email" />
-  <input type="password" placeholder="Contraseña" formControlName="password" />
-  <input type="submit" value="Iniciar Sesión" />
-</form> -->
-
 <!-- METER UN DIV -->
-<form [formGroup]="loginCredentialsData" (ngSubmit)="handleLoginSubmit()">
-  <div class="row py-4">
-    <div class="col">
-      <input
-        type="text"
-        class="form-control my-border-radius d-flex justify-content-evenly max-width"
-        formControlName="email"
-        placeholder="Usuario"
-      />
-      <br />
-    </div>
-    <div class="col">
-      <input
-        type="password"
-        class="form-control my-border-radius d-flex justify-content-evenly max-width"
-        formControlName="password"
-        placeholder="Contraseña"
-      />
-      <br />
-    </div>
-    <div class="d-grid gap-2 d-flex justify-content-evenly">
-      <input
-        type="submit"
-        value="Iniciar Sesión"
-        class="my-color-black my-bg-color-main-light my-border-radius width"
-      />
-    </div>
+<div class="login-div">
+  <div>
+    <h2>Login</h2>
   </div>
-</form>
-
-<!-- <body>
-    <div id="screenMiddle">
-      <h2>Registro de usuarios</h2>
-      <form [formGroup]="loginRegister" (ngSubmit)="handleLoginSubmit()">
-        <div id="formColor">
-          <div class="formDivider">
-            <label for="email">Correo electrónico:</label>
-            <input type="email" formControlName="email" id="email" />
-          </div>
-          <div class="formDivider">
-            <label for="password">Contraseña:</label>
-            <input type="password" formControlName="password" id="password" />
-          </div>
+  <form [formGroup]="loginCredentialsData" (ngSubmit)="handleLoginSubmit()">
+    <div class="row py-4">
+      <div class="col">
+        <input
+          type="text"
+          class="form-control my-border-radius d-flex justify-content-evenly max-width pading-login"
+          formControlName="email"
+          placeholder="Ingrese su usuario"
+        />
+        <br />
+      </div>
+      <div>
+        <div class="col">
+          <input
+            type="password"
+            class="form-control my-border-radius d-flex justify-content-evenly max-width pading-login"
+            formControlName="password"
+            placeholder="Ingrese contraseña"
+          />
+          <br />
         </div>
-        <button id="submit" type="submit">Login</button>
-      </form>
+      </div>
+      <div class="d-grid gap-2 d-flex justify-content-evenly">
+        <input
+          type="submit"
+          value="Inicie sesión"
+          class="my-color-black my-bg-color-main-light my-border-radius width bordered side-width pading-login"
+        />
+      </div>
     </div>
-  </body> -->
+  </form>
+  <div>
+    <h5>Facturación online</h5>
+    <h5>Control de stock</h5>
+    <h5>Compras</h5>
+    <h5>Control administrativo</h5>
+  </div>
+  <div>
+    <h5>En un solo lugar todo lo que necesitas.</h5>
+    <h6>
+      Descrubre todas las funcionalidades, integraciones y complementos que
+      pensamos para optimizar tus procesos operativos y financieros. Accede a
+      nuestro sistema ERP desde cualquier dispositivo.
+    </h6>
+  </div>
+</div>
