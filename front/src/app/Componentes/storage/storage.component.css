@@ -1,0 +1,38 @@
+.storage-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 20px;
+  justify-items: center;
+  align-items: center;
+}
+
+.storage-item {
+  text-align: center;
+}
+
+.storage-item img {
+  width: 100px;
+  height: auto;
+}
+
+.cloudinary-icon {
+  display: block;
+  margin-top: 10px;
+}
+
+.storage-title {
+  margin-top: 80px;
+  margin-left: 140px;
+}
+
+.storage-search {
+  margin-left: 850px;
+  width: 500px;
+}
+
+.storage-list {
+  margin-top: 100px;
+  margin-left: 60px;
+  margin-right: 150px;
+}

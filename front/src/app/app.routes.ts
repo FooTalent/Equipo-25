@@ -5,25 +5,20 @@ import { InvoiceWarehouseComponent } from './Componentes/invoice-warehouse/invoi
 import { InvoicesComponent } from './Componentes/invoices/invoices.component';
 import { SuppliersComponent } from './Componentes/suppliers/suppliers.component';
 import { UsersComponent } from './Componentes/users/users.component';
+import { StorageComponent } from './Componentes/storage/storage.component';
 import { VouchersComponent } from './Componentes/vouchers/vouchers.component';
 import { InvoicesFormComponent } from './Componentes/invoices-form/invoices-form.component';
 import { HederComponent } from './Componentes/header/heder.component';
 
-
-
-
 export const routes: Routes = [
-
-    {path: 'home', component:HomeComponent},  
-    {path: 'login', component:LoginComponent},
-    {path: 'invoice-warehouse', component:InvoiceWarehouseComponent},
-    {path: 'invoices', component:InvoicesComponent},
-    {path: 'suppliers', component:SuppliersComponent},
-    {path: 'users', component:UsersComponent},
-    {path: 'vouchers', component:VouchersComponent},
-    {path: 'invoices', component:InvoicesFormComponent},
-    {path: 'header', component:HederComponent},
-
-
-
-]
+  { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'invoice-warehouse', component: InvoiceWarehouseComponent },
+  { path: 'invoices', component: InvoicesComponent },
+  { path: 'suppliers', component: SuppliersComponent },
+  { path: 'users', component: UsersComponent },
+  { path: 'storage', component: StorageComponent },
+  { path: 'vouchers', component: VouchersComponent },
+  { path: 'invoices', component: InvoicesFormComponent },
+  { path: 'header', component: HederComponent },
+];
