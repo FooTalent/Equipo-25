@@ -1,53 +1,43 @@
-<app-heder></app-heder>
+<!-- <app-heder></app-heder>
+ -->
+<body>
+  <div id="screenMiddle">
+    <h2>AGREGAR PROVEEDORES</h2>
+    <form [formGroup]="supplierRegister" (ngSubmit)="onSubmit()">
+      <div id="formColor">
+        <div class="formDivider">
+          <label for="thirdParty">Tercero</label>
+          <input id="thirdParty" formControlName="thirdPartyData" type="text" />
+        </div>
 
-<!-- METER UN DIV -->
-<div class="login-div">
-  <div>
-    <h4>Facturación online</h4>
-    <h2>Login</h2>
-  </div>
-  <form [formGroup]="supplierData" (ngSubmit)="handleSupplierSubmit()">
-    <div class="row py-4">
-      <div class="col">
-        <input
-          type="text"
-          class="form-control my-border-radius d-flex justify-content-evenly max-width pading-login"
-          formControlName="email"
-          placeholder="Ingrese su usuario"
-        />
-        <br />
-      </div>
-      <div>
-        <div class="col">
-          <input
-            type="password"
-            class="form-control my-border-radius d-flex justify-content-evenly max-width pading-login"
-            formControlName="password"
-            placeholder="Ingrese contraseña"
-          />
-          <br />
+        <div class="formDivider">
+          <label for="nit">NIT</label>
+          <input id="nit" formControlName="nitData" type="text" />
+        </div>
+
+        <div class="formDivider">
+          <label for="phone">Teléfono</label>
+          <input id="phone" formControlName="phoneData" type="tel" />
+        </div>
+
+        <div class="formDivider">
+          <label for="email">Correo</label>
+          <input id="email" formControlName="emailData" type="email" />
+        </div>
+
+        <div class="formDivider">
+          <label for="city">Ciudad / Municipio</label>
+          <input id="city" formControlName="cityData" type="text" />
+        </div>
+
+        <div class="formDivider">
+          <label for="department">Departamento</label>
+          <input id="department" formControlName="departmentData" type="text" />
         </div>
       </div>
-      <div class="d-grid gap-2 d-flex justify-content-evenly">
-        <input
-          type="submit"
-          value="Inicie sesión"
-          class="my-color-black my-bg-color-main-light my-border-radius width bordered side-width pading-login"
-        />
-      </div>
-    </div>
-  </form>
-  <div>
-    <h5>Control administrativo</h5>
+      <button id="submit" type="submit">Agregar proveedor</button>
+    </form>
   </div>
-  <div>
-    <h5>En un solo lugar todo lo que necesitas.</h5>
-    <h6>
-      Descrubre todas las funcionalidades, integraciones y complementos que
-      pensamos para optimizar tus procesos operativos y financieros. Accede a
-      nuestro sistema ERP desde cualquier dispositivo.
-    </h6>
-  </div>
-</div>
+</body>
 
-<app-footer></app-footer>
+<!-- <app-footer></app-footer> -->

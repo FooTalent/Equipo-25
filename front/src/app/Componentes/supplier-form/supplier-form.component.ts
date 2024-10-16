@@ -1,63 +1,93 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
 import {
-  ReactiveFormsModule,
   FormControl,
   FormGroup,
+  ReactiveFormsModule,
   Validators,
+  ValidationErrors,
+  AbstractControl,
+  FormBuilder,
 } from '@angular/forms';
-import { Router } from '@angular/router';
-//import { JwtHelperService } from "@auth0/angular-jwt";
-/* import { ToastrService } from 'ngx-toastr'; */
-import { LoginCredentials } from '../../interfaces/login-credentials';
-import { LoginService } from '../../services/login.service';
-import { FooterComponent } from '../footer/footer.component';
-import { HederComponent } from '../header/heder.component';
+import { UsersService } from '../../services/users.service';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+/* import { FooterComponent } from '../footer/footer.component';
+import { HederComponent } from '../header/heder.component'; */
 
-//const jwtHelperService = new JwtHelperService();
 @Component({
   selector: 'app-supplier-form',
   standalone: true,
-  imports: [ReactiveFormsModule, HederComponent, FooterComponent],
+  imports: [
+    ReactiveFormsModule,
+    HttpClientModule,
+    CommonModule /* , HederComponent, FooterComponent */,
+  ],
   templateUrl: './supplier-form.component.html',
   styleUrl: './supplier-form.component.css',
 })
-export class SupplierFormComponent {
-  router = inject(Router);
-  /* toastrService = inject(ToastrService); */
-  loginService: LoginService = inject(LoginService);
+export class SupplierFormComponent implements OnInit {
+  supplierRegister: FormGroup;
 
-  loginCredentialsData = new FormGroup({
-    email: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
-  });
+  constructor(private form: FormBuilder) {
+    this.supplierRegister = new FormGroup({
+      thirdPartyData: new FormControl('', [Validators.required]),
+      nitData: new FormControl('', [Validators.required]),
+      phoneData: new FormControl('', [Validators.required]),
+      emailData: new FormControl('', [Validators.required, Validators.email]),
+      cityData: new FormControl('', [Validators.required]),
+      departmentData: new FormControl('', [Validators.required]),
+    });
+  }
 
-  handleSupplierSubmit() {
-    if (this.supplierData.valid) {
-      const email = this.supplierData.value.email;
-      const password = this.supplierData.value.password;
+  ngOnInit(): void {}
 
-      if (typeof email === 'string' && typeof password === 'string') {
-        const credentials: LoginCredentials = {
-          email,
-          password,
-        };
-        this.loginService.login(credentials).subscribe((res: any) => {
-          // any porque si no hacemos el Backend no sabemos qué vendrá de él
-          //console.log('Response: ', res);
-          //const decoded = jwtHelperService.decodeToken(res.data.token);
-          //console.log("decoded: ", decoded);
-          if (res.state === 'Successful') {
-            localStorage.setItem('token', res.data.token);
-            //this.router.navigateByUrl('/home'); // Redirigir Way_1
-          } else {
-            /* console.log("Invalid credentials") */
-            /* this.toastrService.error('Credenciales inválidas'); */
-          }
+  /* // Alternar visibilidad de la contraseña
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  } */
+
+  // Método para enviar el formulario
+  onSubmit() {
+    if (this.supplierRegister.valid) {
+      const { confirmPassword, ...formValue } = this.supplierRegister.value;
+      const dataToSend = { ...formValue, state: true };
+
+      if (this.user) {
+        // Actualizamos el usuario si ya existe (modo edición)
+        const userId = this.user._id;
+        this.usersService.updateUser(userId, dataToSend).subscribe({
+          next: (response) => {
+            alert('Usuario actualizado correctamente');
+            this.userEdited.emit(); // Emitimos evento de usuario editado
+          },
+          error: (error) => {
+            console.error('Error al actualizar el usuario', error);
+            alert('Ocurrió un error durante la actualización.');
+          },
+        });
+      } else {
+        // Creamos un nuevo usuario (modo creación)
+        this.usersService.createUser(dataToSend).subscribe({
+          next: (response) => {
+            alert('Usuario registrado correctamente');
+            this.supplierRegistered.emit(); // Emitimos evento de usuario registrado
+          },
+          error: (error) => {
+            console.error('Error al registrar el usuario', error);
+            alert('Ocurrió un error durante el registro.');
+          },
         });
       }
+    } else if (this.supplierRegister.errors?.['passwordsMismatch']) {
+      alert('Las contraseñas no coinciden');
+    } else if (
+      this.supplierRegister.get('password')?.errors?.['passwordStrength']
+    ) {
+      alert(
+        'La contraseña debe tener al menos 8 caracteres, una letra mayúscula, un número y un carácter especial.'
+      );
     } else {
-      /* console.log("Empty form filds"); */
-      /* this.toastrService.warning('Campo de credenciales vacío'); */
+      alert('Faltan campos por llenar.');
     }
   }
 }
