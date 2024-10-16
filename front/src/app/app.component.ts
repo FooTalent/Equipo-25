@@ -13,3 +13,4 @@ import { LoginComponent } from './Componentes/login/login.component';
 export class AppComponent {
   title = 'front';
 }
+ 
