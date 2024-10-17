@@ -5,11 +5,11 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { SupplierModel } from '../../interfaces/supplier-model';
 import { SuppliersService } from '../../services/suppliers.service';
 import { FooterComponent } from '../footer/footer.component';
 import { HederComponent } from '../header/heder.component';
-//import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-supplier-form',
@@ -19,7 +19,7 @@ import { HederComponent } from '../header/heder.component';
   styleUrl: './supplier-form.component.css',
 })
 export class SupplierFormComponent {
-  //toastrService = inject(ToastrService);
+  toastrService = inject(ToastrService);
   SuppliersService: SuppliersService = inject(SuppliersService);
 
   newSupplierData = new FormGroup({
@@ -62,19 +62,19 @@ export class SupplierFormComponent {
             console.log('Response: ', res);
             //const decoded = jwtHelperService.decodeToken(res.data.token);
             //console.log("decoded: ", decoded);
-            /* if (res.state === 'Successful') {
-            localStorage.setItem('token', res.data.token);
-            //this.router.navigateByUrl('/home'); // Redirigir Way_1
-          } else {
-            //console.log("Invalid newSupplier")
-            this.toastrService.error('Credenciales inválidas');
-          } */
+            if (res.state === 'Successful') {
+              localStorage.setItem('token', res.data.token);
+              //this.router.navigateByUrl('/home'); // Redirigir Way_1
+            } else {
+              //console.log("Invalid newSupplier")
+              this.toastrService.error('Credenciales inválidas');
+            }
           }
         );
       }
     } else {
-      /* console.log("Empty form filds"); */
-      //this.toastrService.warning('Campo de credenciales vacío');
+      //console.log('Empty form filds');
+      this.toastrService.warning('Campo de credenciales vacío');
     }
   }
 }
