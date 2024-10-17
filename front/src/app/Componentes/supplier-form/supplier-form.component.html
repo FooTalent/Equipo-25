@@ -1,5 +1,5 @@
-<!-- <app-heder></app-heder>
- -->
+<app-heder></app-heder>
+
 <body>
   <div id="screenMiddle">
     <h2>AGREGAR PROVEEDORES</h2>
@@ -35,9 +35,11 @@
           <input id="department" formControlName="departmentData" type="text" />
         </div>
       </div>
-      <button id="submit" type="submit">Agregar proveedor</button>
+      <button id="submit" type="submit" (click)="handleNewSupplierSubmit()">
+        Agregar proveedor
+      </button>
     </form>
   </div>
 </body>
 
-<!-- <app-footer></app-footer> -->
+<app-footer></app-footer>
