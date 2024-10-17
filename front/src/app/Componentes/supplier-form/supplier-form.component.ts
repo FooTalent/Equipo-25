@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+//import { ToastrService } from 'ngx-toastr';
 import { SupplierModel } from '../../interfaces/supplier-model';
 import { SuppliersService } from '../../services/suppliers.service';
 import { FooterComponent } from '../footer/footer.component';
@@ -21,7 +21,7 @@ import { HederComponent } from '../header/heder.component';
 })
 export class SupplierFormComponent {
   router = inject(Router);
-  toastrService = inject(ToastrService);
+  //toastrService = inject(ToastrService);
   SuppliersService: SuppliersService = inject(SuppliersService);
 
   newSupplierData = new FormGroup({
@@ -64,17 +64,20 @@ export class SupplierFormComponent {
           (res: any) => {
             console.log('Response: ', res);
             if (res._id == String) {
-              this.toastrService.error('Error agregando proveedor');
+              //this.toastrService.error('Error agregando proveedor');
+              alert('Error agregando proveedor');
             } else {
-              this.router.navigateByUrl('/suppliers'); // Redirigir Way_1
-              this.toastrService.success('¡Proveedor agregado con exito!');
+              //this.router.navigateByUrl('/suppliers'); // Redirigir Way_1
+              this.router.navigateByUrl('/home'); // Redirigir Way_1
+              //this.toastrService.success('¡Proveedor agregado con exito!');
+              alert('¡Proveedor agregado con exito!');
             }
           }
         );
       }
     } else {
-      //console.log('Empty form filds');
-      this.toastrService.warning('Campos vacios o NIT y/o CORREO inválido');
+      //this.toastrService.warning('Campos vacios o CORREO inválido');
+      alert('Campos vacios o CORREO inválido');
     }
   }
 }
