@@ -1,12 +1,25 @@
-// middlewares/multer.js
 import multer from "multer";
 import path from "path";
+import fs from "fs";
+import { fileURLToPath } from "url"; // Necesario para convertir import.meta.url a ruta de archivo
+
+// Obtener __dirname equivalente en ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Asegúrate de que la carpeta donde guardarás los archivos temporales existe
+const destinationPath = path.join(__dirname, "..", "uploads");
+
+// Crear la carpeta 'uploads' si no existe
+if (!fs.existsSync(destinationPath)) {
+  fs.mkdirSync(destinationPath, { recursive: true });
+}
 
 // Configuración de almacenamiento de Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     console.log("Archivo recibido para almacenamiento:", file.originalname); // Log adicional
-    cb(null, "D:\\Equipo-25\\back\\test\\data\\"); // Carpeta donde se guarda el archivo
+    cb(null, destinationPath); // Carpeta relativa donde se guarda el archivo
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname); // Usamos el nombre original del archivo PDF
