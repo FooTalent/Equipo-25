@@ -7,6 +7,7 @@ import storageRouter from "./routers/storageRouter.js";
  */
 import supplierRouter from "./routers/supplierRouter.js";
 import Router_invoice from "./routers/invoiceRouter.js";
+import router from "./routers/storageRouter.js";
 /*
 import invoiceRouter from "./routers/invoiceRouter.js"; // Todos fuera de corchetes porque está exportado por default
 */
@@ -22,7 +23,7 @@ server.use("/invoice", invoiceRouter);
 server.use("/storage", storageRouter); */
 server.use("/suppliers", supplierRouter);
 server.use("/invoice", Router_invoice);
-
+server.use("/storage", router);
 
 server.get("/", (sol, res) => {
   res.status(404).send("Not found, try /login on the URL");
