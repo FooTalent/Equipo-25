@@ -13,7 +13,7 @@ export class SuppliersService {
   toastrService = inject(ToastrService);
 
   // BACKEND URL a donde se harán las peticiones (del login)
-  API_URL = 'http://localhost:3000/Supplier';
+  API_URL = 'http://localhost:3000/suppliers';
 
   createSupplier(supplierData: SupplierModel) {
     return this.httpClient.post(this.API_URL, supplierData);

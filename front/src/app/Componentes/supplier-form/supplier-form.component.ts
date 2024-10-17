@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SupplierModel } from '../../interfaces/supplier-model';
 import { SuppliersService } from '../../services/suppliers.service';
@@ -19,6 +20,7 @@ import { HederComponent } from '../header/heder.component';
   styleUrl: './supplier-form.component.css',
 })
 export class SupplierFormComponent {
+  router = inject(Router);
   toastrService = inject(ToastrService);
   SuppliersService: SuppliersService = inject(SuppliersService);
 
@@ -34,8 +36,10 @@ export class SupplierFormComponent {
   handleNewSupplierSubmit() {
     if (this.newSupplierData.valid) {
       const thirdParty = this.newSupplierData.value.thirdPartyData;
-      const nit = this.newSupplierData.value.nitData;
-      const phone = this.newSupplierData.value.phoneData;
+      const nitNumber = this.newSupplierData.value.nitData;
+      const nit = String(nitNumber);
+      const phoneNumber = this.newSupplierData.value.phoneData;
+      const phone = String(phoneNumber);
       const email = this.newSupplierData.value.emailData;
       const city = this.newSupplierData.value.cityData;
       const department = this.newSupplierData.value.departmentData;
@@ -58,23 +62,19 @@ export class SupplierFormComponent {
         };
         this.SuppliersService.createSupplier(newSupplier).subscribe(
           (res: any) => {
-            // any porque si no hicimos nosotros el Backend, no sabremos qué vendrá de él
             console.log('Response: ', res);
-            //const decoded = jwtHelperService.decodeToken(res.data.token);
-            //console.log("decoded: ", decoded);
-            if (res.state === 'Successful') {
-              localStorage.setItem('token', res.data.token);
-              //this.router.navigateByUrl('/home'); // Redirigir Way_1
+            if (res._id == String) {
+              this.toastrService.error('Error agregando proveedor');
             } else {
-              //console.log("Invalid newSupplier")
-              this.toastrService.error('Credenciales inválidas');
+              this.router.navigateByUrl('/suppliers'); // Redirigir Way_1
+              this.toastrService.success('¡Proveedor agregado con exito!');
             }
           }
         );
       }
     } else {
       //console.log('Empty form filds');
-      this.toastrService.warning('Campo de credenciales vacío');
+      this.toastrService.warning('Campos vacios o NIT y/o CORREO inválido');
     }
   }
 }
