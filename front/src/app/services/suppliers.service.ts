@@ -2,8 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-/* import { supplierCredentials } from '../interfaces/supplier-credentials';
-CREATE A INTERFACE with supplierData */
+import { SupplierModel } from '../interfaces/supplier-model';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,7 +15,7 @@ export class SuppliersService {
   // BACKEND URL a donde se harán las peticiones (del login)
   API_URL = 'http://localhost:3000/Supplier';
 
-  createSupplier(supplierData: any /* supplierCredentials */) {
+  createSupplier(supplierData: SupplierModel) {
     return this.httpClient.post(this.API_URL, supplierData);
   }
 
