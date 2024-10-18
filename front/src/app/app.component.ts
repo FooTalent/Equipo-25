@@ -12,4 +12,3 @@ import { InvoicesComponent } from './Componentes/invoices/invoices.component';
 export class AppComponent {
   title = 'front';
 }
- 

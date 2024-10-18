@@ -10,19 +10,17 @@ import { InvoicesFormComponent } from './Componentes/invoices-form/invoices-form
 import { StorageComponent } from './Componentes/storage/storage.component';
 import { UserListComponent } from './superAdmin/user-list/user-list.component';
 import { HederComponent } from './Componentes/header/heder.component';
+import { SupplierFormComponent } from './Componentes/supplier-form/supplier-form.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'header', component: HederComponent },
   { path: 'login', component: LoginComponent },
   { path: 'invoice-warehouse', component: InvoiceWarehouseComponent },
   { path: 'invoices', component: InvoicesComponent },
   { path: 'suppliers', component: SuppliersComponent },
   { path: 'users', component: UsersComponent },
   { path: 'vouchers', component: VouchersComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'invpoces', component: InvoicesFormComponent },
-  { path: 'storage', component: StorageComponent },
-  { path: 'user-list', component: UserListComponent },
-  { path: 'invoices-form', component: InvoicesFormComponent },
+  { path: 'invoices', component: InvoicesFormComponent },
+  { path: 'header', component: HederComponent },
+  { path: 'supplierForm', component: SupplierFormComponent },
 ];
