@@ -2,9 +2,88 @@
   background-image: url("/assets/images/background-login.jpg");
   background-size: cover;
   background-position: center;
-  opacity: 100%;
+  background-repeat: no-repeat;
+  background-color: rgba(255, 255, 255, 0.5); /* Color semitransparente */
+  background-blend-mode: overlay; /* Superpone el color con la imagen */
+  padding-bottom: 35px;
 }
 
-.login-div {
-  opacity: 100%;
+.login-grid {
+  max-width: 1400px;
+  margin: auto;
+  display: grid;
+  padding-top: 50px;
+  grid-template-columns: 1fr 1fr 1fr; /* Tres columnas iguales */
+  grid-template-rows: auto auto auto; /* Tres filas automáticas */
+  grid-template-areas: 
+    "primerh2 loginform ."
+    ". loginform ."
+    ". loginform segundoh2";
+  gap: 20px; /* Espacio entre los elementos */
+}
+
+.login-grid h2:first-of-type {
+  grid-area: primerh2;
+  text-align: center;
+}
+
+#login-form {
+  grid-area: loginform;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-grid h2:last-of-type {
+  grid-area: segundoh2;
+  text-align: center;
+}
+
+/* Estilos adicionales para ajustar el formulario */
+#login-form input[type="text"],
+#login-form input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+#login-form input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #022C5E; /* Color de fondo */
+  color: white; /* Color de texto */
+  border: none; /* Remover borde por defecto */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+}
+
+#login-form input[type="submit"]:hover {
+  background-color: #03488F; /* Color más claro en hover (opcional) */
+}
+
+.login-grid h5, .login-grid h6 {
+  grid-column: 1 / -1; /* Ocupa todo el ancho de la grid */
+  text-align: center;
+}
+
+form {
+  background: linear-gradient(
+    to bottom,
+    rgba(2, 44, 94, 0.76),
+    rgba(38, 191, 115, 0.75)
+  );
+  padding: 30px 30px 60px 30px;
+  border-radius: 5px;
+}
+
+#last-text {
+  background-color: rgba(255, 255, 255, 0.75);
+  max-width: 1400px;
+  margin: auto;
+  margin-top: 20px;
+  color: #022C5E;
+  padding: 40px;
+  border-radius: 35px;
 }

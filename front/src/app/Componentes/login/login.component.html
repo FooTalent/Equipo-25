@@ -1,55 +1,59 @@
 <app-heder></app-heder>
 <!-- METER UN DIV -->
 <div id="background">
-  <div class="login-div">
-    <div>
-      <h2>Login</h2>
-    </div>
-    <form [formGroup]="loginCredentialsData" (ngSubmit)="handleLoginSubmit()">
-      <div class="row py-4">
-        <div class="col">
-          <input
-            type="text"
-            class="form-control my-border-radius d-flex justify-content-evenly max-width pading-login"
-            formControlName="email"
-            placeholder="Ingrese su usuario"
-          />
-          <br />
-        </div>
-        <div>
+  <div class="login-grid">
+    <h2>Facturación online</h2>
+    <div id="login-form">
+      <div>
+        <h2>
+          <img
+            src="../../../assets/images/logo-ContaCol.png"
+            alt="Logo de ContaCol"
+            height="100px"
+          />Login
+        </h2>
+      </div>
+      <form [formGroup]="loginCredentialsData" (ngSubmit)="handleLoginSubmit()">
+        <div class="row py-4">
           <div class="col">
             <input
-              type="password"
+              type="text"
               class="form-control my-border-radius d-flex justify-content-evenly max-width pading-login"
-              formControlName="password"
-              placeholder="Ingrese contraseña"
+              formControlName="email"
+              placeholder="Ingrese su usuario"
             />
             <br />
           </div>
+          <div>
+            <div class="col">
+              <input
+                type="password"
+                class="form-control my-border-radius d-flex justify-content-evenly max-width pading-login"
+                formControlName="password"
+                placeholder="Ingrese contraseña"
+              />
+              <br />
+            </div>
+          </div>
+          <div class="d-grid gap-2 d-flex justify-content-evenly">
+            <input
+              type="submit"
+              value="Inicie sesión"
+              class="my-color-black my-bg-color-main-light my-border-radius width bordered side-width pading-login"
+            />
+          </div>
         </div>
-        <div class="d-grid gap-2 d-flex justify-content-evenly">
-          <input
-            type="submit"
-            value="Inicie sesión"
-            class="my-color-black my-bg-color-main-light my-border-radius width bordered side-width pading-login"
-          />
-        </div>
-      </div>
-    </form>
-    <div>
-      <h5>Facturación online</h5>
-      <h5>Control de stock</h5>
-      <h5>Compras</h5>
-      <h5>Control administrativo</h5>
+      </form>
     </div>
-    <div>
-      <h5>En un solo lugar todo lo que necesitas.</h5>
-      <h6>
-        Descrubre todas las funcionalidades, integraciones y complementos que
-        pensamos para optimizar tus procesos operativos y financieros. Accede a
-        nuestro sistema ERP desde cualquier dispositivo.
-      </h6>
-    </div>
+    <h2>Control administrativo</h2>
+  </div>
+  <div id="last-text">
+    <h5>En un solo lugar todo lo que necesitas.</h5>
+    <h6>
+      Descubre todas las funcionalidades, integraciones y complementos que
+      pensamos para optimizar tus procesos operativos y financieros. Accede a
+      nuestro sistema ERP desde cualquier dispositivo.
+    </h6>
   </div>
 </div>
 <app-footer></app-footer>
