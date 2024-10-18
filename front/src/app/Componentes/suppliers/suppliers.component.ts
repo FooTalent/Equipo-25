@@ -1,58 +1,78 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Necesario para standalone components
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  Validators,
-} from '@angular/forms'; // Para trabajar con ngModel
+import { CommonModule } from '@angular/common';
 import { SuppliersService } from '../../services/suppliers.service';
-import { HttpClientModule } from '@angular/common/http';
+import { SupplierFormComponent } from '../supplier-form/supplier-form.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-suppliers',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule], // Importando CommonModule y FormsModule para standalone components
+  imports: [CommonModule, FormsModule, SupplierFormComponent],
   templateUrl: './suppliers.component.html',
-  styleUrl: './suppliers.component.css',
+  styleUrls: ['./suppliers.component.css'],
 })
 export class SuppliersComponent implements OnInit {
-  suppliersForm: FormGroup;
-  adata: any[] = []; // Declaramos la propiedad adata para contener los datos de los proveedores
+  adata: any[] = [];
+  showForm = false;
+  selectedSupplier: any = null;
+  showConfirmDelete = false; // Controla si se muestra el diálogo de confirmación
+  supplierToDelete: any = null; // Almacena el proveedor que se va a eliminar
 
-  constructor(
-    private fb: FormBuilder,
-    private suppliersService: SuppliersService
-  ) {
-    this.suppliersForm = this.fb.group({
-      thirdParty: ['', Validators.required],
-      nit: ['', Validators.required],
-      department: ['', Validators.required],
-      city: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', Validators.required],
-    });
-  }
+  constructor(private suppliersService: SuppliersService) {}
 
   ngOnInit(): void {
-    // Asignamos los datos recibidos del servicio a la propiedad 'adata'
-    this.suppliersService.getSupplier().subscribe((data: any[]) => {
-      this.adata = data; // Asignamos los datos a 'adata'
+    this.getAllSuppliers();
+  }
+
+  getAllSuppliers() {
+    this.suppliersService.getSuppliers().subscribe((data: any[]) => {
+      this.adata = data;
     });
   }
 
-  onSubmit() {
-    if (this.suppliersForm.valid) {
-      this.suppliersService.createSupplier(this.suppliersForm.value).subscribe(
-        (response) => {
-          console.log('Proveedor creado exitosamente', response);
-        },
-        (error) => {
-          console.error('Error al crear el proveedor', error);
-        }
-      );
-    } else {
-      console.log('Formulario no válido');
+  toggleForm() {
+    this.showForm = !this.showForm;
+  }
+
+  handleFormClosed() {
+    this.showForm = false;
+    this.selectedSupplier = null;
+    this.getAllSuppliers();
+  }
+
+  openForm(supplier: any = null) {
+    this.selectedSupplier = supplier;
+    this.showForm = true;
+  }
+
+  // Mostrar el diálogo de confirmación
+  confirmDelete(supplier: any) {
+    this.supplierToDelete = supplier;
+    this.showConfirmDelete = true; // Muestra el diálogo de confirmación
+  }
+
+  // Eliminar el proveedor seleccionado
+  deleteSupplier() {
+    if (this.supplierToDelete && this.supplierToDelete._id) {
+      this.suppliersService
+        .deleteSupplierById(this.supplierToDelete._id)
+        .subscribe(
+          (res: any) => {
+            alert('Proveedor eliminado con éxito');
+            this.getAllSuppliers(); // Refresca la lista de proveedores
+            this.showConfirmDelete = false;
+          },
+          (error: any) => {
+            alert('Error eliminando proveedor');
+            this.showConfirmDelete = false;
+          }
+        );
     }
+  }
+
+  // Cancelar la eliminación
+  cancelDelete() {
+    this.showConfirmDelete = false;
+    this.supplierToDelete = null; // Limpia el proveedor a eliminar
   }
 }

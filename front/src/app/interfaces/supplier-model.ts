@@ -1,4 +1,5 @@
 export interface SupplierModel {
+  _id?: string;
   thirdParty: String;
   nit: String;
   phone: String;

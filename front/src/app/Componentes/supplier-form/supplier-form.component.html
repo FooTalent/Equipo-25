@@ -1,7 +1,7 @@
 <body>
   <div id="screenMiddle">
     <h2>AGREGAR PROVEEDORES</h2>
-    <form [formGroup]="newSupplierData">
+    <form [formGroup]="newSupplierData" (ngSubmit)="handleNewSupplierSubmit()">
       <div id="formColor">
         <div class="formDivider">
           <label for="thirdParty">Tercero</label>
@@ -33,9 +33,7 @@
           <input id="department" formControlName="departmentData" type="text" />
         </div>
       </div>
-      <button id="submit" type="submit" (click)="handleNewSupplierSubmit()">
-        Agregar proveedor
-      </button>
+      <button id="submit" type="submit">Agregar proveedor</button>
     </form>
   </div>
 </body>

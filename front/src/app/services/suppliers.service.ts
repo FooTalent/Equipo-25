@@ -29,13 +29,38 @@ export class SuppliersService {
   }
 
   // Obtener todos los proveedores
-  getSupplier(): Observable<SupplierModel[]> {
+  getSuppliers(): Observable<SupplierModel[]> {
     return this.httpClient.get<SupplierModel[]>(this.API_URL).pipe(
       catchError((error) => {
         this.toastrService.error('Error al obtener los proveedores');
         return throwError(() => new Error(error));
       })
     );
+  }
+
+  // Obtener un proveedor por ID
+  getSupplierById(id: string): Observable<SupplierModel> {
+    return this.httpClient.get<SupplierModel>(`${this.API_URL}/${id}`).pipe(
+      catchError((error) => {
+        this.toastrService.error('Error al obtener el proveedor');
+        return throwError(() => new Error(error));
+      })
+    );
+  }
+
+  // Actualizar un proveedor existente por ID
+  updateSupplier(
+    id: string,
+    supplierData: SupplierModel
+  ): Observable<SupplierModel> {
+    return this.httpClient
+      .put<SupplierModel>(`${this.API_URL}/${id}`, supplierData)
+      .pipe(
+        catchError((error) => {
+          this.toastrService.error('Error al actualizar el proveedor');
+          return throwError(() => new Error(error));
+        })
+      );
   }
 
   // Eliminar proveedor por ID

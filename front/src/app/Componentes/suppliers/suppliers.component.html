@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container" [class.container-disabled]="showForm">
   <div class="header">
     <h2>LISTA DE PROVEEDORES</h2>
     <input type="text" placeholder="Buscar proveedor" class="search-input" />
-    <button class="add-button">Agregar Proveedor</button>
+    <button class="add-button" (click)="toggleForm()">Agregar Proveedor</button>
   </div>
 
   <table class="providers-table">
@@ -19,7 +19,6 @@
     </thead>
 
     <tbody>
-      <!-- Usamos *ngFor para iterar sobre adata -->
       <tr *ngFor="let element of adata; let i = index">
         <td>{{ element.thirdParty }}</td>
         <td>{{ element.nit }}</td>
@@ -28,12 +27,35 @@
         <td>{{ element.city }}</td>
         <td>{{ element.department }}</td>
         <td>
-          <button class="edit-button">✏️</button>
-          <button class="delete-button">🗑️</button>
+          <button class="edit-button" (click)="openForm(element)">✏️</button>
+          <button class="delete-button" (click)="confirmDelete(element)">
+            🗑️
+          </button>
         </td>
       </tr>
     </tbody>
   </table>
 
   <button class="back-button">Volver</button>
+
+  <!-- Popup de formulario -->
+  <div *ngIf="showForm">
+    <div class="form-overlay"></div>
+    <div class="form-container">
+      <button class="close-btn" (click)="toggleForm()">&times;</button>
+      <app-supplier-form
+        [supplier]="selectedSupplier"
+        (formClosed)="handleFormClosed()"
+      ></app-supplier-form>
+    </div>
+  </div>
+
+  <!-- Diálogo de confirmación de eliminación -->
+  <div *ngIf="showConfirmDelete" class="confirm-dialog">
+    <p>
+      ¿Estás seguro de eliminar al proveedor {{ supplierToDelete?.thirdParty }}?
+    </p>
+    <button (click)="deleteSupplier()">Sí</button>
+    <button (click)="cancelDelete()">No</button>
+  </div>
 </div>

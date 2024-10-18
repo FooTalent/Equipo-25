@@ -1,4 +1,11 @@
-import { Component, inject } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+} from '@angular/core';
 import {
   ReactiveFormsModule,
   FormControl,
@@ -6,7 +13,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-//import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 import { SupplierModel } from '../../interfaces/supplier-model';
 import { SuppliersService } from '../../services/suppliers.service';
 import { FooterComponent } from '../footer/footer.component';
@@ -17,67 +24,117 @@ import { HederComponent } from '../header/heder.component';
   standalone: true,
   imports: [ReactiveFormsModule, HederComponent, FooterComponent],
   templateUrl: './supplier-form.component.html',
-  styleUrl: './supplier-form.component.css',
+  styleUrls: ['./supplier-form.component.css'],
 })
-export class SupplierFormComponent {
+export class SupplierFormComponent implements OnInit {
+  @Input() supplier: SupplierModel | null = null; // Input para recibir datos del proveedor
+  @Output() formClosed = new EventEmitter<void>(); // Output para notificar al padre cuando se cierra el formulario
+
   router = inject(Router);
-  //toastrService = inject(ToastrService);
+  // toastrService = inject(ToastrService);
   SuppliersService: SuppliersService = inject(SuppliersService);
 
   newSupplierData = new FormGroup({
-    thirdPartyData: new FormControl('', [Validators.required]),
-    nitData: new FormControl('', [Validators.required]),
-    phoneData: new FormControl('', [Validators.required]),
-    emailData: new FormControl('', [Validators.required, Validators.email]),
-    cityData: new FormControl('', [Validators.required]),
-    departmentData: new FormControl('', [Validators.required]),
+    thirdPartyData: new FormControl<string>('', [Validators.required]),
+    nitData: new FormControl<number | null>(null, [Validators.required]),
+    phoneData: new FormControl<number | null>(null, [Validators.required]),
+    emailData: new FormControl<string>('', [
+      Validators.required,
+      Validators.email,
+    ]),
+    cityData: new FormControl<string>('', [Validators.required]),
+    departmentData: new FormControl<string>('', [Validators.required]),
   });
+
+  ngOnInit() {
+    // Si se pasa un proveedor, se rellenan los campos del formulario
+    if (this.supplier) {
+      this.newSupplierData.patchValue({
+        thirdPartyData: this.supplier.thirdParty.valueOf(),
+        nitData: Number(this.supplier.nit),
+        phoneData: Number(this.supplier.phone),
+        emailData: this.supplier.email.valueOf(),
+        cityData: this.supplier.city.valueOf(),
+        departmentData: this.supplier.department.valueOf(),
+      });
+    }
+  }
 
   handleNewSupplierSubmit() {
     if (this.newSupplierData.valid) {
       const thirdParty = this.newSupplierData.value.thirdPartyData;
       const nitNumber = this.newSupplierData.value.nitData;
-      const nit = String(nitNumber);
       const phoneNumber = this.newSupplierData.value.phoneData;
-      const phone = String(phoneNumber);
       const email = this.newSupplierData.value.emailData;
       const city = this.newSupplierData.value.cityData;
       const department = this.newSupplierData.value.departmentData;
 
-      if (
-        typeof thirdParty === 'string' &&
-        typeof nit === 'string' &&
-        typeof phone === 'string' &&
-        typeof email === 'string' &&
-        typeof city === 'string' &&
-        typeof department === 'string'
-      ) {
-        const newSupplier: SupplierModel = {
-          thirdParty,
-          nit,
-          phone,
-          email,
-          city,
-          department,
-        };
+      // Verificar que nitNumber y phoneNumber no sean null o undefined
+      if (nitNumber == null || phoneNumber == null) {
+        alert('NIT y Teléfono deben ser números válidos');
+        return;
+      }
+
+      // Convertir los números a cadenas antes de crear el objeto para el backend (ya que se reciben en tipo number)
+      const newSupplier: SupplierModel = {
+        thirdParty: thirdParty!,
+        nit: nitNumber.toString(),
+        phone: phoneNumber.toString(),
+        email: email!,
+        city: city!,
+        department: department!,
+      };
+
+      // Verificamos si es un nuevo proveedor POST o una actualización PUT
+      if (this.supplier?._id) {
+        this.SuppliersService.updateSupplier(
+          this.supplier._id,
+          newSupplier
+        ).subscribe(
+          (res: any) => {
+            console.log('Proveedor actualizado: ', res);
+            alert('¡Proveedor actualizado con éxito!');
+            this.closeForm();
+          },
+          (error: any) => {
+            console.error('Error actualizando proveedor: ', error);
+            alert('Error actualizando proveedor');
+          }
+        );
+      } else {
+        // Crear nuevo proveedor POST
         this.SuppliersService.createSupplier(newSupplier).subscribe(
           (res: any) => {
-            console.log('Response: ', res);
-            if (res._id == String) {
-              //this.toastrService.error('Error agregando proveedor');
-              alert('Error agregando proveedor');
-            } else {
-              //this.router.navigateByUrl('/suppliers'); // Redirigir Way_1
-              this.router.navigateByUrl('/home'); // Redirigir Way_1
-              //this.toastrService.success('¡Proveedor agregado con exito!');
-              alert('¡Proveedor agregado con exito!');
-            }
+            console.log('Proveedor creado: ', res);
+            alert('¡Proveedor agregado con éxito!');
+            this.closeForm();
+          },
+          (error) => {
+            console.error('Error creando proveedor: ', error);
+            alert('Error creando proveedor');
           }
         );
       }
     } else {
-      //this.toastrService.warning('Campos vacios o CORREO inválido');
-      alert('Campos vacios o CORREO inválido');
+      alert('Campos vacíos o CORREO inválido');
     }
+  }
+
+  // Métodos para manejar la entrada de NIT y Teléfono como números
+  onNitInput(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const value = inputElement.valueAsNumber;
+    this.newSupplierData.patchValue({ nitData: isNaN(value) ? null : value });
+  }
+
+  onPhoneInput(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const value = inputElement.valueAsNumber;
+    this.newSupplierData.patchValue({ phoneData: isNaN(value) ? null : value });
+  }
+
+  // Método para cerrar el formulario y emitir el evento
+  closeForm() {
+    this.formClosed.emit();
   }
 }

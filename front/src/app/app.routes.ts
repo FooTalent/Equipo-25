@@ -23,4 +23,5 @@ export const routes: Routes = [
   { path: 'invoices', component: InvoicesFormComponent },
   { path: 'header', component: HederComponent },
   { path: 'supplierForm', component: SupplierFormComponent },
+  { path: 'storage', component: StorageComponent },
 ];
