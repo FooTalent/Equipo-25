@@ -10,13 +10,15 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LoginCredentials } from '../../interfaces/login-credentials';
 import { LoginService } from '../../services/login.service';
+import { HederComponent } from '../header/heder.component';
+import { FooterComponent } from '../footer/footer.component';
 
 //const jwtHelperService = new JwtHelperService();
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, HederComponent, FooterComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

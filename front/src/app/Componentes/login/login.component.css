@@ -1,21 +1,10 @@
-.pading-login {
-  padding: 6px;
-  padding-left: 20px;
+#background {
+  background-image: url("/assets/images/background-login.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 100%;
 }
 
 .login-div {
-  height: 200px;
-  width: 400px;
-}
-
-.big-font {
-  font-size: 32px;
-}
-
-.bordered {
-  border-radius: 15px;
-}
-
-.side-width {
-  width: 100%;
+  opacity: 100%;
 }
