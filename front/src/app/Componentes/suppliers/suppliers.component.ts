@@ -96,4 +96,8 @@ export class SuppliersComponent implements OnInit {
       });
     }
   }
+  // Método para recargar la página
+  reloadPage(): void {
+    window.location.reload(); // Recarga la página actual
+  }
 }

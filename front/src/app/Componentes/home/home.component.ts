@@ -37,14 +37,14 @@ export class HomeComponent {
           this.invoices = response.data
             .filter(
               (invoice: any) =>
-                invoice.invoice_status === 'Por pagar / verificado' ||
-                invoice.invoice_status === 'Pendiente verificar'
+                (invoice.invoice_status === 'Por pagar / verificado' ||
+                  invoice.invoice_status === 'Pendiente verificar') &&
+                invoice.due_date // Filtrar si due_date no es null o undefined o vacío
             )
             .sort((a: any, b: any) => {
-              // Ordenar por fecha de emisión (issue_date) en sentido descendente
+              // Ordenar por fecha de emisión (due_date) en sentido descendente
               return (
-                new Date(b.issue_date).getTime() -
-                new Date(a.issue_date).getTime()
+                new Date(a.due_date).getTime() - new Date(b.due_date).getTime()
               );
             });
         } else {

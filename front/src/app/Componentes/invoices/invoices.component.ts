@@ -5,6 +5,7 @@ import { HederComponent } from '../header/heder.component';
 import { FooterComponent } from '../footer/footer.component';
 import { InvoicesFormComponent } from '../invoices-form/invoices-form.component';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-invoices',
@@ -16,6 +17,7 @@ import { FormsModule } from '@angular/forms';
     InvoicesFormComponent,
     CommonModule,
     FormsModule,
+    RouterLink,
   ],
   templateUrl: './invoices.component.html',
   styleUrls: ['./invoices.component.css'],
@@ -68,5 +70,10 @@ export class InvoicesComponent {
 
   ngOnInit() {
     this.getallinvoices(); // Cargamos todas las facturas al inicio
+  }
+
+  // Método para recargar la página
+  reloadPage(): void {
+    window.location.reload(); // Recarga la página actual
   }
 }
