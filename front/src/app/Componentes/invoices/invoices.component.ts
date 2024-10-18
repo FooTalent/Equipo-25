@@ -5,6 +5,7 @@ import { HederComponent } from '../header/heder.component';
 import { FooterComponent } from '../footer/footer.component';
 import { InvoicesFormComponent } from '../invoices-form/invoices-form.component';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-invoices',
@@ -16,6 +17,7 @@ import { FormsModule } from '@angular/forms';
     InvoicesFormComponent,
     CommonModule,
     FormsModule,
+    RouterLink,
   ],
   templateUrl: './invoices.component.html',
   styleUrls: ['./invoices.component.css'],
@@ -32,13 +34,13 @@ export class InvoicesComponent {
   getallinvoices() {
     this.invoice_service.getInvoices().subscribe((answer: any) => {
       this.alldata = answer.data || [];
-      this.filteredData = this.alldata; // La lista filtrada es igual a la lista completa inicialmente
+      this.filteredData = this.alldata;
     });
   }
 
   // Método para filtrar las facturas
   filterInvoices() {
-    const query = this.searchQuery.toLowerCase(); // Convertimos a minúsculas para búsqueda insensible a mayúsculas/minúsculas
+    const query = this.searchQuery.toLowerCase();
     this.filteredData = this.alldata.filter((invoice) => {
       return (
         invoice.invoice.toLowerCase().includes(query) ||
@@ -50,9 +52,9 @@ export class InvoicesComponent {
 
   // Método para cerrar el formulario
   handleFormClosed() {
-    this.showForm = false; // Oculta el formulario
-    this.selectedInvoice = null; // Resetea la factura seleccionada
-    this.getallinvoices(); // Refresca la lista de facturas
+    this.showForm = false;
+    this.selectedInvoice = null;
+    this.getallinvoices();
   }
 
   // Alternar la visibilidad del formulario
@@ -62,11 +64,16 @@ export class InvoicesComponent {
 
   // Mostrar el formulario con un invoice seleccionado
   openForm(invoice: any = null) {
-    this.selectedInvoice = invoice; // Guardamos la factura seleccionada o null si es nueva
-    this.showForm = true; // Mostramos el formulario
+    this.selectedInvoice = invoice;
+    this.showForm = true;
   }
 
   ngOnInit() {
     this.getallinvoices(); // Cargamos todas las facturas al inicio
+  }
+
+  // Método para recargar la página
+  reloadPage(): void {
+    window.location.reload(); // Recarga la página actual
   }
 }

@@ -8,7 +8,7 @@
   background-color: #c6c6c6;
   padding: 20px;
   max-width: 1500px;
-  margin: 0 auto 70px auto;
+  margin: 0 auto 20px auto;
 }
 
 .container {
@@ -93,9 +93,10 @@ header {
 
 .edit-button {
   padding: 5px 10px;
-  background-color: #ddd;
+  color: #022c5e;
   border: none;
   cursor: pointer;
+  background: none;
 }
 
 .back-button {
@@ -177,4 +178,22 @@ Footer {
   margin-left: 313%;
   font-size: small;
   color: black;
+}
+
+/* Botón para volver atrás */
+.go-back-container {
+  display: flex;
+  justify-content: flex-end;
+  max-width: 1650px;
+  margin-bottom: 20px;
+}
+
+.go-back {
+  padding: 5px 20px;
+  background-color: #022c5e;
+  border-radius: 20px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
 }
