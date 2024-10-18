@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LoginCredentials } from '../../interfaces/login-credentials';
 import { LoginService } from '../../services/login.service';
-import { HederComponent } from '../header/heder.component';
 import { FooterComponent } from '../footer/footer.component';
+import { HederComponent } from '../header/heder.component';
 
 //const jwtHelperService = new JwtHelperService();
 
