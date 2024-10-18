@@ -17,7 +17,7 @@ Acá veremos la parte del backend del proyecto. Está desarrollado con Node.js u
 - **pdf-parse**: Para la extracción y manipulación de contenido de archivos PDF.
 - **dotenv**: Gestión de variables de entorno.
 - **cors**: Manejo de políticas de intercambio de recursos de origen cruzado.
-<!-- - **date-fns**: Librería para el manejo de fechas. -->
+- **date-fns**: Librería para el manejo de fechas.
 
 ## Instalación
 
@@ -67,7 +67,7 @@ Acá veremos la parte del backend del proyecto. Está desarrollado con Node.js u
 - **Gestión de Usuarios**: Cifrado de contraseñas con bcryptjs.
 - **Subida de Archivos**: Gestión de archivos mediante Multer y Cloudinary.
 - **Extracción de PDFs**: Procesamiento de contenido de archivos PDF con pdf-parse.
-<!-- - **Manejo de Fechas**: Utilización de date-fns para operaciones con fechas. -->
+- **Manejo de Fechas**: Utilización de date-fns para operaciones con fechas.
 
 ## Endpoints Principales
 
@@ -87,4 +87,4 @@ Si deseas contribuir a este proyecto, por favor sigue estos pasos:
 
 ## Licencia
 
-Este proyecto a sido creado por y está bajo la autoridad del grupo No. <span style="font-size: 18px;">**25 Noche</span> de Foo Talent Group**, 2do semestre 2024.
+Este proyecto a sido creado por y está bajo la autoridad del equipo No. <span style="font-size: 18px;">**25 Noche</span> de Foo Talent Group**, 2do semestre 2024.

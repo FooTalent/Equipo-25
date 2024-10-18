@@ -8,4 +8,4 @@ Este proyecto se conforma por un Backend y un Frontend independientes, y está d
 
 ## Licencia
 
-Este proyecto a sido creado por y está bajo la autoridad del grupo No. <span style="font-size: 18px;">**25 Noche</span> de Foo Talent Group**, 2do semestre 2024.
+Este proyecto a sido creado por y está bajo la autoridad del equipo No. <span style="font-size: 18px;">**25 Noche</span> de Foo Talent Group**, 2do semestre 2024.
