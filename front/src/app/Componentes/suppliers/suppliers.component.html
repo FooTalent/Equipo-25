@@ -19,8 +19,8 @@
     </thead>
 
     <tbody>
-      @for(element of adata; track $index ){
-      <tr>
+      <!-- Usamos *ngFor para iterar sobre adata -->
+      <tr *ngFor="let element of adata; let i = index">
         <td>{{ element.thirdParty }}</td>
         <td>{{ element.nit }}</td>
         <td>{{ element.phone }}</td>
@@ -32,8 +32,6 @@
           <button class="delete-button">🗑️</button>
         </td>
       </tr>
-      }
-      <!-- Agregar más filas según sea necesario -->
     </tbody>
   </table>
 

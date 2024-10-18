@@ -6,21 +6,19 @@ import {
   FormsModule,
   Validators,
 } from '@angular/forms'; // Para trabajar con ngModel
-/* import Swal from 'sweetalert2'; // SweetAlert importación correcta
- */ import { SuppliersService } from '../../services/suppliers.service';
+import { SuppliersService } from '../../services/suppliers.service';
 import { HttpClientModule } from '@angular/common/http';
-
-declare var $: any;
 
 @Component({
   selector: 'app-suppliers',
   standalone: true,
   imports: [CommonModule, FormsModule, HttpClientModule], // Importando CommonModule y FormsModule para standalone components
   templateUrl: './suppliers.component.html',
-  styleUrls: ['./suppliers.component.css'],
+  styleUrl: './suppliers.component.css',
 })
 export class SuppliersComponent implements OnInit {
   suppliersForm: FormGroup;
+  adata: any[] = []; // Declaramos la propiedad adata para contener los datos de los proveedores
 
   constructor(
     private fb: FormBuilder,
@@ -35,8 +33,12 @@ export class SuppliersComponent implements OnInit {
       phone: ['', Validators.required],
     });
   }
+
   ngOnInit(): void {
-    this.suppliersService.getSupplier().subscribe((data) => data);
+    // Asignamos los datos recibidos del servicio a la propiedad 'adata'
+    this.suppliersService.getSupplier().subscribe((data: any[]) => {
+      this.adata = data; // Asignamos los datos a 'adata'
+    });
   }
 
   onSubmit() {
@@ -44,11 +46,9 @@ export class SuppliersComponent implements OnInit {
       this.suppliersService.createSupplier(this.suppliersForm.value).subscribe(
         (response) => {
           console.log('Proveedor creado exitosamente', response);
-          // Maneja la respuesta, posiblemente mostrar un mensaje de éxito
         },
         (error) => {
           console.error('Error al crear el proveedor', error);
-          // Maneja el error
         }
       );
     } else {

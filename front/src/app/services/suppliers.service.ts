@@ -1,29 +1,50 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { SupplierModel } from '../interfaces/supplier-model';
+
 @Injectable({
   providedIn: 'root',
 })
 export class SuppliersService {
-  constructor() {}
-  httpClient = inject(HttpClient);
-  router = inject(Router);
-  toastrService = inject(ToastrService);
+  private readonly API_URL = 'http://localhost:3000/suppliers';
 
-  // BACKEND URL a donde se harán las peticiones (del login)
-  API_URL = 'http://localhost:3000/suppliers';
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router,
+    private toastrService: ToastrService
+  ) {}
 
-  createSupplier(supplierData: SupplierModel) {
-    return this.httpClient.post(this.API_URL, supplierData);
+  // Crear un nuevo proveedor
+  createSupplier(supplierData: SupplierModel): Observable<SupplierModel> {
+    return this.httpClient.post<SupplierModel>(this.API_URL, supplierData).pipe(
+      catchError((error) => {
+        this.toastrService.error('Error al crear el proveedor');
+        return throwError(() => new Error(error));
+      })
+    );
   }
 
-  getSupplier() {
-    return this.httpClient.get(this.API_URL);
+  // Obtener todos los proveedores
+  getSupplier(): Observable<SupplierModel[]> {
+    return this.httpClient.get<SupplierModel[]>(this.API_URL).pipe(
+      catchError((error) => {
+        this.toastrService.error('Error al obtener los proveedores');
+        return throwError(() => new Error(error));
+      })
+    );
   }
 
-  deleteSupplierById(id: string) {
-    return this.httpClient.delete(`${this.API_URL}/${id}`);
+  // Eliminar proveedor por ID
+  deleteSupplierById(id: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.API_URL}/${id}`).pipe(
+      catchError((error) => {
+        this.toastrService.error('Error al eliminar el proveedor');
+        return throwError(() => new Error(error));
+      })
+    );
   }
 }
