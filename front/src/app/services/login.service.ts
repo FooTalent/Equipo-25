@@ -35,9 +35,10 @@ export class LoginService {
     }
   }
 
+  // Consumir esta func en el botón de Logout
   logout() {
-    this.toastrService.info('Sesión cerrada');
     localStorage.removeItem('token');
-    this.router.navigate(['/']); //Redirigir Inicio
+    this.toastrService.info('Sesión cerrada');
+    this.router.navigate(['/login']); //Redirigir al Login
   }
 }

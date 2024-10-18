@@ -49,15 +49,16 @@ export class LoginComponent {
           //console.log("decoded: ", decoded);
           if (res.state === 'Successful') {
             localStorage.setItem('token', res.data.token);
+            this.toastrService.success('Sesión iniciada');
             //this.router.navigateByUrl('/home'); // Redirigir Way_1
           } else {
-            /* console.log("Invalid credentials") */
+            //console.log("Invalid credentials")
             this.toastrService.error('Credenciales inválidas');
           }
         });
       }
     } else {
-      /* console.log("Empty form filds"); */
+      //console.log("Empty form filds");
       this.toastrService.warning('Campo de credenciales vacío');
     }
   }
