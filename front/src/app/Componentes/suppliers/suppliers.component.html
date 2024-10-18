@@ -1,7 +1,15 @@
 <div class="container" [class.container-disabled]="showForm">
   <div class="header">
     <h2>LISTA DE PROVEEDORES</h2>
-    <input type="text" placeholder="Buscar proveedor" class="search-input" />
+    <input
+      type="text"
+      placeholder="Buscar proveedor"
+      class="search-input"
+      [(ngModel)]="searchQuery"
+      (input)="filterSuppliers()"
+    />
+    <div></div>
+    <!-- esto es una div vacia para que ocupe el espacio de la tercera columna en el CSS grid -->
     <button class="add-button" (click)="toggleForm()">Agregar Proveedor</button>
   </div>
 
@@ -19,7 +27,7 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let element of adata; let i = index">
+      <tr *ngFor="let element of filteredSuppliers; let i = index">
         <td>{{ element.thirdParty }}</td>
         <td>{{ element.nit }}</td>
         <td>{{ element.phone }}</td>
@@ -27,16 +35,16 @@
         <td>{{ element.city }}</td>
         <td>{{ element.department }}</td>
         <td>
-          <button class="edit-button" (click)="openForm(element)">✏️</button>
+          <button class="edit-button" (click)="openForm(element)">
+            <i class="bi bi-pencil-square"></i>
+          </button>
           <button class="delete-button" (click)="confirmDelete(element)">
-            🗑️
+            <i class="bi bi-trash3-fill"></i>
           </button>
         </td>
       </tr>
     </tbody>
   </table>
-
-  <button class="back-button">Volver</button>
 
   <!-- Popup de formulario -->
   <div *ngIf="showForm">

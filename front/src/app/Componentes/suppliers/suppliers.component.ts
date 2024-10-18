@@ -17,6 +17,8 @@ export class SuppliersComponent implements OnInit {
   selectedSupplier: any = null;
   showConfirmDelete = false; // Controla si se muestra el diálogo de confirmación
   supplierToDelete: any = null; // Almacena el proveedor que se va a eliminar
+  filteredSuppliers: any[] = []; // Nueva lista filtrada de proveedores
+  searchQuery: string = ''; // Maneja el valor de la búsqueda
 
   constructor(private suppliersService: SuppliersService) {}
 
@@ -27,6 +29,7 @@ export class SuppliersComponent implements OnInit {
   getAllSuppliers() {
     this.suppliersService.getSuppliers().subscribe((data: any[]) => {
       this.adata = data;
+      this.filteredSuppliers = this.adata;
     });
   }
 
@@ -48,7 +51,7 @@ export class SuppliersComponent implements OnInit {
   // Mostrar el diálogo de confirmación
   confirmDelete(supplier: any) {
     this.supplierToDelete = supplier;
-    this.showConfirmDelete = true; // Muestra el diálogo de confirmación
+    this.showConfirmDelete = true;
   }
 
   // Eliminar el proveedor seleccionado
@@ -59,7 +62,7 @@ export class SuppliersComponent implements OnInit {
         .subscribe(
           (res: any) => {
             alert('Proveedor eliminado con éxito');
-            this.getAllSuppliers(); // Refresca la lista de proveedores
+            this.getAllSuppliers();
             this.showConfirmDelete = false;
           },
           (error: any) => {
@@ -73,6 +76,24 @@ export class SuppliersComponent implements OnInit {
   // Cancelar la eliminación
   cancelDelete() {
     this.showConfirmDelete = false;
-    this.supplierToDelete = null; // Limpia el proveedor a eliminar
+    this.supplierToDelete = null;
+  }
+
+  // Método para filtrar proveedores
+  filterSuppliers() {
+    const query = this.searchQuery.toLowerCase();
+
+    // Si el campo de búsqueda está vacío, mostrar todos los proveedores
+    if (!query) {
+      this.filteredSuppliers = this.adata;
+    } else {
+      this.filteredSuppliers = this.adata.filter((supplier) => {
+        return (
+          supplier.thirdParty.toLowerCase().includes(query) ||
+          supplier.nit.toLowerCase().includes(query) ||
+          supplier.city.toLowerCase().includes(query)
+        );
+      });
+    }
   }
 }
