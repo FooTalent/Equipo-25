@@ -1,82 +1,86 @@
-.table {
-  background-color: #fff; /* Fondo de la tabla */
+#function-container {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1500px;
+    margin: 20px auto;
 }
 
-.table td {
-  border: 1px solid #030303; /* Color de las líneas */
-  color: rgb(0, 0, 0); /* Color del texto en la tabla */
+.function-selector {
+    cursor: pointer;
+    color: black; 
+    transition: color 0.3s ease; 
 }
 
-.table th {
-  background-color: #fff; /* Color de fondo para el encabezado */
+/* Estilo cuando el cursor está por encima */
+.function-selector:hover {
+    cursor: pointer;
 }
 
-.btn-g {
-  background-color: #616161;
-  color: #fff;
-  padding: 6px;
-  border-radius: 10%;
+/* Estilo cuando el selector está activo */
+.function-selector.active {
+    color: black;
 }
 
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: space-around;
-  align-items: center;
+/* Estilo para selectores deshabilitados */
+.function-selector.disabled {
+    color: gray;
 }
 
-.input-group {
-  display: flex;
-  justify-content: space-between;
+/* Estilo para h2 e íconos */
+h2 {
+    display: flex;
+    align-items: center;
 }
 
-.btn1 {
-  margin-bottom: 20px;
+h2 i {
+    font-size: 100px;
 }
 
-.btn3 {
-  margin-top: 20px;
-  margin-left: auto; /* Alinea a la derecha */
-  padding: 5px;
-  border-radius: 10px;
-  padding-left: 30px;
+/* Estilos para la tabla */
+#table-container {
+    padding: 0 20px;
 }
 
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto 70px auto; 
+    border-collapse: collapse; 
 }
 
-th,
+/* Bordes y estilo de las celdas */
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 5px solid #c6c6c6;
+}
+
+/* Color del encabezado de la tabla */
+th {
+    background-color: #c6c6c6;
+    color: #022C5E;
+}
+
 td {
-  padding: 12px;
-  text-align: left;
+    background-color: white;
 }
 
-tr:nth-child(even) {
-  background-color: #f2f2f2; /* Alternar filas */
-}
-
+/* Efecto hover para las filas */
 tr:hover {
-  background-color: #eaeaea; /* Color al pasar el mouse */
+    background-color: #f5f5f5;
 }
 
-@media (max-width: 600px) {
-  table {
-    font-size: 14px;
-  }
+/* Estilo del icono en la columna de detalle */
+i.bi-file-text {
+    cursor: pointer;
 }
 
-.iconos-dv {
-  margin: 100px;
+/* Centrar el contenido de las celdas específicas */
+td.icon-center, td.date-center {
+    text-align: center;
+    vertical-align: middle;
 }
-.icono {
-  font-size: 4rem;
-}
-.t-icon {
-  display: flex;
-  align-items: center;
+
+td.icon-center i {
+    font-size: 22px;
 }
