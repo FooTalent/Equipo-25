@@ -1,4 +1,7 @@
 /* Contenedor principal */
+*{margin: 0;
+padding: 0;
+}
 .container {
   width: 90%;
   margin: 0 auto;
@@ -6,6 +9,8 @@
   background-color: #f4f4f4;
   border-radius: 10px;
 }
+
+
 
 /* Cabecera */
 .header {
@@ -51,14 +56,13 @@
 
 
 .comprobante-item {
- display: flex;
- flex-direction: row;
+display: inline-block;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 20px;
   text-align: center;
-  width: auto;
+  width:20%;
 }
 
 .comprobante-icon {
