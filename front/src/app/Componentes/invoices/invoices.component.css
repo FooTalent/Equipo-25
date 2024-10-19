@@ -4,6 +4,13 @@
   box-sizing: border-box;
 }
 
+#invoice-list-container {
+  background-color: #c6c6c6;
+  padding: 20px;
+  max-width: 1500px;
+  margin: 0 auto 20px auto;
+}
+
 .container {
   width: 100%;
   padding: 20px;
@@ -50,7 +57,7 @@ header {
 
 .add-button {
   padding: 5px 20px;
-  background-color: gray;
+  background-color: #022c5e;
   border-radius: 20px;
   color: white;
   border: none;
@@ -66,9 +73,10 @@ header {
 
 .invoice-table th,
 .invoice-table td {
-  border: 1px solid #ddd;
+  border: 3px solid #c6c6c6;
   padding: 10px;
   text-align: center;
+  background-color: white;
 }
 
 .invoice-table th {
@@ -85,9 +93,10 @@ header {
 
 .edit-button {
   padding: 5px 10px;
-  background-color: #ddd;
+  color: #022c5e;
   border: none;
   cursor: pointer;
+  background: none;
 }
 
 .back-button {
@@ -109,6 +118,49 @@ img {
   height: 66px;
   margin-left: 16px;
 }
+
+/* Overlay que cubre el fondo */
+.form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+/* Formulario centrado y por encima de todo */
+.form-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 1400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  pointer-events: auto;
+}
+
+/* Botón de cierre */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+}
+
+#invoice-list-container.container-disabled {
+  pointer-events: none;
+}
 Footer {
   background-color: rgba(168, 167, 165, 0.836);
   margin-top: 10px;
@@ -126,4 +178,22 @@ Footer {
   margin-left: 313%;
   font-size: small;
   color: black;
+}
+
+/* Botón para volver atrás */
+.go-back-container {
+  display: flex;
+  justify-content: flex-end;
+  max-width: 1650px;
+  margin-bottom: 20px;
+}
+
+.go-back {
+  padding: 5px 20px;
+  background-color: #022c5e;
+  border-radius: 20px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
 }

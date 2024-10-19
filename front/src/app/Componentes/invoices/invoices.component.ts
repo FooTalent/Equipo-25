@@ -1,33 +1,79 @@
-import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { InvoiceService } from '../../services/invoice.service';
-import { DatePipe } from '@angular/common';
-import { ToastrService } from 'ngx-toastr';
+import { CommonModule, DatePipe } from '@angular/common';
+import { HederComponent } from '../header/heder.component';
+import { FooterComponent } from '../footer/footer.component';
+import { InvoicesFormComponent } from '../invoices-form/invoices-form.component';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+
 @Component({
   selector: 'app-invoices',
   standalone: true,
-  imports: [DatePipe],
+  imports: [
+    DatePipe,
+    HederComponent,
+    FooterComponent,
+    InvoicesFormComponent,
+    CommonModule,
+    FormsModule,
+    RouterLink,
+  ],
   templateUrl: './invoices.component.html',
-  styleUrl: './invoices.component.css',
+  styleUrls: ['./invoices.component.css'],
 })
 export class InvoicesComponent {
-  toast = inject(ToastrService);
   invoice_service = inject(InvoiceService);
   alldata: any[] = [];
+  showForm = false; // Controla la visibilidad del formulario
+  filteredData: any[] = []; // Lista filtrada de facturas
+  searchQuery: string = ''; // Maneja el valor de la búsqueda
+  selectedInvoice: any = null; // Factura seleccionada para editar
 
+  // Obtener todas las facturas
   getallinvoices() {
     this.invoice_service.getInvoices().subscribe((answer: any) => {
-      console.log('ans: ', answer);
-      if (answer.data) {
-        this.alldata = answer.data;
-        console.log('invoices read correctly');
-        this.toast.success('invopices read correctly');
-      } else {
-        console.log('an error has ocurred while reading invoices');
-      }
-      this.alldata = answer.data;
+      this.alldata = answer.data || [];
+      this.filteredData = this.alldata;
     });
   }
-  ngOnInit() {
+
+  // Método para filtrar las facturas
+  filterInvoices() {
+    const query = this.searchQuery.toLowerCase();
+    this.filteredData = this.alldata.filter((invoice) => {
+      return (
+        invoice.invoice.toLowerCase().includes(query) ||
+        invoice.third_party.toLowerCase().includes(query) ||
+        invoice.invoice_type.toLowerCase().includes(query)
+      );
+    });
+  }
+
+  // Método para cerrar el formulario
+  handleFormClosed() {
+    this.showForm = false;
+    this.selectedInvoice = null;
     this.getallinvoices();
+  }
+
+  // Alternar la visibilidad del formulario
+  toggleForm() {
+    this.showForm = !this.showForm;
+  }
+
+  // Mostrar el formulario con un invoice seleccionado
+  openForm(invoice: any = null) {
+    this.selectedInvoice = invoice;
+    this.showForm = true;
+  }
+
+  ngOnInit() {
+    this.getallinvoices(); // Cargamos todas las facturas al inicio
+  }
+
+  // Método para recargar la página
+  reloadPage(): void {
+    window.location.reload(); // Recarga la página actual
   }
 }
