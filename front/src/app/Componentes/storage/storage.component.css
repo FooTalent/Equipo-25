@@ -3,14 +3,36 @@
 padding: 0;
 }
 .container {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f4f4f4;
+
   border-radius: 10px;
 }
 
+.user-controls {
+  display: flex;
+ flex-direction: row;
+  gap: 10px;
+  flex-direction: row-reverse;
+  align-content: space-around;
+}
+.Almacen{right: 100px;}
 
+.search-bar {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.logout-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
 /* Cabecera */
 .header {
@@ -31,34 +53,15 @@ padding: 0;
   gap: 10px;
 }
 
-.search-bar {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
 
-.logout-button {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-}
 
-/* Título */
-.title {
-  margin: 20px 0;
-  text-align: left;
-}
 
-/* Grilla de comprobantes */
+
 
 
 .comprobante-item {
 display: inline-block;
   background-color: #fff;
-  border: 1px solid #ddd;
   border-radius: 5px;
   padding: 20px;
   text-align: center;
@@ -95,4 +98,41 @@ display: inline-block;
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
+}
+/* Contenedor del header pequeño */
+.small-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+/* Estilos para el contenedor del icono y texto */
+.header-icon {
+  display: flex;
+  align-items: center;
+}
+
+.icon-img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+/* Estilos para la barra de búsqueda */
+.search-bar-container {
+  position: relative;
+}
+
+.search-bar {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  width: 250px;
+  font-size: 14px;
+}
+
+/* Estilos opcionales para agregar un ícono de lupa dentro de la barra de búsqueda */
+.search-bar::placeholder {
+  padding-left: 20px; /* Ajuste para que el texto del placeholder no choque con el icono */
 }
