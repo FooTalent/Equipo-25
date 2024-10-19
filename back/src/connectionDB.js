@@ -3,10 +3,13 @@ import { v2 as cloudinary } from "cloudinary";
 import dotenv from "dotenv";
 
 // Carga las variables de entorno desde .env
-dotenv.config();
+
 // MongoDB connection
+dotenv.config();
 mongoose
-  .connect(process.env.MONGO_ENDPOINT)
+  .connect(
+    "mongodb+srv://JuanArz2:...@juanarz2cluster.mvlnjui.mongodb.net/ContaCol?retryWrites=true&w=majority&appName=JuanArz2Cluster"
+  )
   .then((data) => {
     console.log("Success conecting MongoDB");
   })

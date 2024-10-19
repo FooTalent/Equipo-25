@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SuppliersService } from '../../services/suppliers.service';
 import { SupplierFormComponent } from '../supplier-form/supplier-form.component';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-suppliers',
@@ -21,6 +22,8 @@ export class SuppliersComponent implements OnInit {
   searchQuery: string = ''; // Maneja el valor de la búsqueda
 
   constructor(private suppliersService: SuppliersService) {}
+
+  toastrService = inject(ToastrService);
 
   ngOnInit(): void {
     this.getAllSuppliers();
@@ -61,12 +64,12 @@ export class SuppliersComponent implements OnInit {
         .deleteSupplierById(this.supplierToDelete._id)
         .subscribe(
           (res: any) => {
-            alert('Proveedor eliminado con éxito');
+            this.toastrService.success('Proveedor eliminado con éxito');
             this.getAllSuppliers();
             this.showConfirmDelete = false;
           },
           (error: any) => {
-            alert('Error eliminando proveedor');
+            this.toastrService.error('Error eliminando proveedor');
             this.showConfirmDelete = false;
           }
         );
