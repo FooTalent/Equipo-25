@@ -154,3 +154,33 @@ header {
   cursor: pointer;
   font-size: 1rem;
 }
+
+.form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  pointer-events: none; /* Bloquear clics solo en el fondo */
+}
+
+.form-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 1400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  pointer-events: auto; /* Habilitar clics solo en el formulario */
+}
+
+#invoice-list-container.container-disabled {
+  pointer-events: none; /* Deshabilitar clics en el fondo cuando el modal está activo */
+}
