@@ -1,11 +1,16 @@
 import dotenv from "dotenv";
+import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+
+dotenv.config();
+const jwtSecretKey = process.env.JWT_SECRET_KEY;
 
 dotenv.config();
 const jwtSecretKey = process.env.JWT_SECRET_KEY;
 
 export function generateToken(xPayload) {
   return new Promise((res, rej) => {
+    jwt.sign(xPayload, jwtSecretKey, { expiresIn: "1h" }, (error, token) => {
     jwt.sign(xPayload, jwtSecretKey, { expiresIn: "1h" }, (error, token) => {
       if (error) {
         rej({ error });
@@ -57,8 +62,50 @@ const isAccountant = (req, res, next) => {
   }
 }; */
 
+/* // Código que vimos en la tarde, para verificar roles
+  export const verifyToken = (req, res, next) => {
+  const token = req.headers["Authorization"];
+  if (!token) {
+    return res.status(403).send({ message: "No token provided!" });
+  }
+
+  jwt.verify(token, jwtSecretKey, (err, decoded) => {
+    if (err) {
+      return res.status(401).send({ message: "err. Unauthorized!" });
+    }
+    req.userRole = decoded.role;
+    req.userState = decoded.state;
+    next();
+  });
+};
+
+const isAdmin = (req, res, next) => {
+  if (req.userRole === "admin") {
+    next();
+  } else {
+    res.status(403).send({ message: "Require Admin Role!" });
+  }
+};
+
+const isSuperAdmin = (req, res, next) => {
+  if (req.userRole === "superAdmin") {
+    next();
+  } else {
+    res.status(403).send({ message: "Require SuperAdmin Role!" });
+  }
+};
+
+const isAccountant = (req, res, next) => {
+  if (req.userRole === "accountant") {
+    next();
+  } else {
+    res.status(403).send({ message: "Require Accountant Role!" });
+  }
+}; */
+
 export function verifyToken(token) {
   return new Promise((res, rej) => {
+    jwt.verify(token, jwtSecretKey, (error, decoded) => {
     jwt.verify(token, jwtSecretKey, (error, decoded) => {
       if (error) {
         rej(error);

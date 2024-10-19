@@ -29,25 +29,52 @@ export class InvoicesComponent {
   filteredData: any[] = []; // Lista filtrada de facturas
   searchQuery: string = ''; // Maneja el valor de la búsqueda
   selectedInvoice: any = null; // Factura seleccionada para editar
+  startDate: string | null = null;
+  endDate: string | null = null;
+  isLoading = false; // Controla la visibilidad del loader
 
   // Obtener todas las facturas
   getallinvoices() {
-    this.invoice_service.getInvoices().subscribe((answer: any) => {
-      this.alldata = answer.data || [];
-      this.filteredData = this.alldata;
-    });
+    this.isLoading = true; // Mostrar el loader
+    this.invoice_service.getInvoices().subscribe(
+      (answer: any) => {
+        this.alldata = (answer.data || []).sort((a: any, b: any) => {
+          return (
+            new Date(a.issue_date).getTime() - new Date(b.issue_date).getTime()
+          );
+        });
+        this.filteredData = this.alldata;
+        this.isLoading = false;
+      },
+      (error) => {
+        this.isLoading = false; // oculta loader si error
+      }
+    );
   }
 
   // Método para filtrar las facturas
   filterInvoices() {
-    const query = this.searchQuery.toLowerCase();
-    this.filteredData = this.alldata.filter((invoice) => {
-      return (
-        invoice.invoice.toLowerCase().includes(query) ||
-        invoice.third_party.toLowerCase().includes(query) ||
-        invoice.invoice_type.toLowerCase().includes(query)
-      );
-    });
+    this.isLoading = true; // Mostrar el loader antes de filtrar
+    setTimeout(() => {
+      const query = this.searchQuery.toLowerCase();
+
+      this.filteredData = this.alldata.filter((invoice) => {
+        const matchesQuery =
+          invoice.invoice.toLowerCase().includes(query) ||
+          invoice.third_party.toLowerCase().includes(query) ||
+          invoice.invoice_type.toLowerCase().includes(query);
+
+        const invoiceDate = new Date(invoice.issue_date);
+
+        const matchesDate =
+          (!this.startDate || invoiceDate >= new Date(this.startDate)) &&
+          (!this.endDate || invoiceDate <= new Date(this.endDate));
+
+        return matchesQuery && matchesDate;
+      });
+
+      this.isLoading = false;
+    }, 500);
   }
 
   // Método para cerrar el formulario
@@ -74,6 +101,6 @@ export class InvoicesComponent {
 
   // Método para recargar la página
   reloadPage(): void {
-    window.location.reload(); // Recarga la página actual
+    window.location.reload();
   }
 }

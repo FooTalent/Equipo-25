@@ -17,6 +17,7 @@ server.use(express.json());
 server.use(morgan("dev"));
 server.use("/users", userRouter);
 server.use("/login", loginRouter);
+server.use("/login", loginRouter);
 server.use("/invoice", invoiceRouter);
 server.use("/storage", storageRouter);
 server.use("/suppliers", supplierRouter);

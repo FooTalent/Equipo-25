@@ -22,12 +22,14 @@ import { InvoiceService } from '../../services/invoice.service';
 })
 export class HomeComponent {
   currentComponent: string = 'table'; // Para mostrar la tabla por defecto
+  invoices: any[] = []; // Array para almacenar las facturas
+  isLoading = false; // Controla la visibilidad del loader
 
   constructor(private invoiceService: InvoiceService, private router: Router) {}
 
-  invoices: any[] = []; // Array para almacenar las facturas
-
   ngOnInit(): void {
+    this.isLoading = true; // Mostrar loader mientras se cargan las facturas
+
     this.invoiceService.getInvoices().subscribe(
       (response) => {
         console.log('Respuesta del backend:', response);
@@ -39,7 +41,7 @@ export class HomeComponent {
               (invoice: any) =>
                 (invoice.invoice_status === 'Por pagar / verificado' ||
                   invoice.invoice_status === 'Pendiente verificar') &&
-                invoice.due_date // Filtrar si due_date no es null o undefined o vacío
+                invoice.due_date
             )
             .sort((a: any, b: any) => {
               // Ordenar por fecha de emisión (due_date) en sentido descendente
@@ -52,12 +54,16 @@ export class HomeComponent {
             'No se encontró un array de facturas en la propiedad data.'
           );
         }
+
+        this.isLoading = false; // Ocultar el loader cuando los datos se han cargado
       },
       (error) => {
         console.error('Error al cargar las facturas:', error);
+        this.isLoading = false;
       }
     );
   }
+
   // Método para mostrar el componente seleccionado
   showComponent(component: string) {
     this.currentComponent = component;

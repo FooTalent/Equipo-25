@@ -1,4 +1,4 @@
-import dotenv from "dotenv";
+import dotenv from "dotenv"
 import "./connectionDB.js";
 import server from "./server.js";
 
