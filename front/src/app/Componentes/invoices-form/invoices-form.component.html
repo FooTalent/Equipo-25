@@ -65,11 +65,13 @@
   <form id="invoiceForm" [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
     <!-- Primera columna -->
     <div class="form-item" style="grid-area: comprobante">
-      <label for="comprobante">Nro. de comprobante</label>
+      <label for="comprobante"
+        >Nro. de comprobante <span class="required">*</span></label
+      >
       <input type="text" id="comprobante" formControlName="invoice" />
     </div>
     <div class="form-item" style="grid-area: tercero">
-      <label for="tercero">Tercero</label>
+      <label for="tercero">Tercero <span class="required">*</span></label>
       <input type="text" id="tercero" formControlName="third_party" />
     </div>
     <div class="form-item" style="grid-area: impuestos">
@@ -77,7 +79,9 @@
       <input type="number" id="impuestos" formControlName="taxes_total" />
     </div>
     <div class="form-item" style="grid-area: tipoComprobante">
-      <label for="tipoComprobante">Tipo de Comprobante</label>
+      <label for="tipoComprobante"
+        >Tipo de Comprobante <span class="required">*</span></label
+      >
       <select id="tipoComprobante" formControlName="invoice_type">
         <option value="Factura electrónica">Factura electrónica</option>
         <option value="Cuenta de cobro">Cuenta de cobro</option>
@@ -85,16 +89,18 @@
         <option value="Recaudo">Recaudo</option>
         <option value="Nota crédito">Nota crédito</option>
         <option value="Recibo">Recibo</option>
-        <option value="Otro">Otro (anotar en observación)</option>
+        <option value="Otro">Otro (especificar en observaciones)</option>
       </select>
     </div>
     <div class="form-item" style="grid-area: monto">
-      <label for="monto">Monto</label>
+      <label for="monto">Monto <span class="required">*</span></label>
       <input type="number" id="monto" formControlName="invoice_total" />
     </div>
     <!-- Segunda columna -->
     <div class="form-item" style="grid-area: fechaEmision">
-      <label for="fechaEmision">Fecha de Emisión</label>
+      <label for="fechaEmision"
+        >Fecha de Emisión <span class="required">*</span></label
+      >
       <input type="date" id="fechaEmision" formControlName="issue_date" />
     </div>
     <div class="form-item" style="grid-area: departamento">
@@ -106,7 +112,9 @@
       <input type="number" id="reteFuente" formControlName="rte_fuente" />
     </div>
     <div class="form-item" style="grid-area: formaPago">
-      <label for="formaPago">Forma de Pago</label>
+      <label for="formaPago"
+        >Forma de Pago <span class="required">*</span></label
+      >
       <select id="formaPago" formControlName="payment_way">
         <option value="Cuentas por pagar">Cuentas por pagar (CxP)</option>
         <option value="Reembolsado">Reembolsado (Rembol)</option>
@@ -117,7 +125,7 @@
       </select>
     </div>
     <div class="form-item" style="grid-area: estado">
-      <label for="estado">Estado</label>
+      <label for="estado">Estado <span class="required">*</span></label>
       <select id="estado" formControlName="invoice_status">
         <option value="Pagado">Pagado</option>
         <option value="Por pagar / verificado">Por pagar / verificado</option>
@@ -140,15 +148,13 @@
     <div class="form-item" style="grid-area: medioPago">
       <label for="medioPago">Medio de Pago</label>
       <select id="medioPago" formControlName="payment_method">
-        <option value="Banco (empresa)">Banco (empresa)</option>
-        <option value="JMA Cjm">
-          JMA Cjm (Caja menor de Juan Manuel Ariza)
-        </option>
-        <option value="AG Cjm">AG Cjm (Caja menor de A...G...)</option>
+        <option value="Banco HR">Banco HR</option>
+        <option value="JMA Cjm">JMA Cjm</option>
+        <option value="AG Cjm">AG Cjm</option>
         <option value="Indefinido (pendiente)">
           Indefinido (pendiente) (PDT)
         </option>
-        <option value="Otro">Otro</option>
+        <option value="Otro">Otro (especificar en observaciones)</option>
       </select>
     </div>
     <!-- Cuarta columna -->
