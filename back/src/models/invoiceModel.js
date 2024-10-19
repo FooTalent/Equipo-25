@@ -9,7 +9,7 @@ const esquma_facturas = new Schema({
   third_party: { type: String, required: true },
   invoice_status: { type: String, required: true },
   due_date: { type: Date, required: false },
-  description: { type: String, required: true },
+  description: { type: String, required: false },
   payment_way: { type: String, required: true },
   paid_value: { type: Number, required: false },
   payment_date: { type: Date, required: false },

@@ -13,7 +13,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-// import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { SupplierModel } from '../../interfaces/supplier-model';
 import { SuppliersService } from '../../services/suppliers.service';
 import { FooterComponent } from '../footer/footer.component';
@@ -31,6 +31,7 @@ export class SupplierFormComponent implements OnInit {
   @Output() formClosed = new EventEmitter<void>(); // Output para notificar al padre cuando se cierra el formulario
 
   router = inject(Router);
+  toastrService = inject(ToastrService);
   // toastrService = inject(ToastrService);
   SuppliersService: SuppliersService = inject(SuppliersService);
 
@@ -71,7 +72,7 @@ export class SupplierFormComponent implements OnInit {
 
       // Verificar que nitNumber y phoneNumber no sean null o undefined
       if (nitNumber == null || phoneNumber == null) {
-        alert('NIT y Teléfono deben ser números válidos');
+        this.toastrService.warning('NIT y Teléfono deben ser números válidos');
         return;
       }
 
@@ -93,12 +94,12 @@ export class SupplierFormComponent implements OnInit {
         ).subscribe(
           (res: any) => {
             console.log('Proveedor actualizado: ', res);
-            alert('¡Proveedor actualizado con éxito!');
+            this.toastrService.success('¡Proveedor actualizado con éxito!');
             this.closeForm();
           },
           (error: any) => {
             console.error('Error actualizando proveedor: ', error);
-            alert('Error actualizando proveedor');
+            this.toastrService.error('Error actualizando proveedor');
           }
         );
       } else {
@@ -106,17 +107,17 @@ export class SupplierFormComponent implements OnInit {
         this.SuppliersService.createSupplier(newSupplier).subscribe(
           (res: any) => {
             console.log('Proveedor creado: ', res);
-            alert('¡Proveedor agregado con éxito!');
+            this.toastrService.success('¡Proveedor agregado con éxito!');
             this.closeForm();
           },
           (error) => {
             console.error('Error creando proveedor: ', error);
-            alert('Error creando proveedor');
+            this.toastrService.error('Error creando proveedor');
           }
         );
       }
     } else {
-      alert('Campos vacíos o CORREO inválido');
+      this.toastrService.warning('Campos vacíos o CORREO inválido');
     }
   }
 
