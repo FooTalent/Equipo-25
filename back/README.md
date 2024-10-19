@@ -87,4 +87,4 @@ Si deseas contribuir a este proyecto, por favor sigue estos pasos:
 
 ## Licencia
 
-Este proyecto a sido creado por y está bajo la autoridad del equipo No. <span style="font-size: 18px;">**25 Noche</span> de Foo Talent Group**, 2do semestre 2024.
+Sistema contable desarrollado para Colombia, Todo los derechos reservados. Propiedad del <span style="font-size: 18px;">_**Equipo 25**</span> - Foo Talent Group_
