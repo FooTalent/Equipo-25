@@ -7,7 +7,8 @@ import { UserListComponent } from './superAdmin/user-list/user-list.component';
 import { roleGuard } from './guards/role.guard';
 
 export const routes: Routes = [
-  { path: '', component: LoginComponent }, // Ruta de login por defecto
+  { path: '', component: LoginComponent },
+  { path: 'faq', component: FaqInfoComponent }, // Ruta de login por defecto
   {
     path: 'home',
     component: HomeComponent,
