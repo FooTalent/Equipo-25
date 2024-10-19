@@ -3,6 +3,7 @@ footer {
   padding: 20px;
   position: relative;
   height: 100px;
+  margin-bottom: -10%;
 }
 
 .footer-content {
