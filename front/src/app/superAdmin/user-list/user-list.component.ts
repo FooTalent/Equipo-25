@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { UserRegisterFormComponent } from '../user-register-form/user-register-form.component';
 import { HederComponent } from '../../Componentes/header/heder.component';
 import { FooterComponent } from '../../Componentes/footer/footer.component';
+import { HeaderSuperadminComponent } from '../../Componentes/header-superadmin/header-superadmin.component';
 
 @Component({
   selector: 'app-user-list',
@@ -15,6 +16,7 @@ import { FooterComponent } from '../../Componentes/footer/footer.component';
     UserRegisterFormComponent,
     HederComponent,
     FooterComponent,
+    HeaderSuperadminComponent,
   ],
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css'],

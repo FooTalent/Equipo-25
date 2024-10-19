@@ -13,32 +13,56 @@ export class LoginService {
   router = inject(Router);
   toastrService = inject(ToastrService);
 
-  /* API_URL = "http://18.118.115.16:3000/login"; */
-  // BACKEND AWS URL a donde se harán las peticiones (del login)
   API_URL = 'http://localhost:3000/login';
 
   login(userCredentials: LoginCredentials) {
     return this.httpClient.post(this.API_URL, userCredentials);
   }
 
-  validateToken(token: string) {
-    return this.httpClient.get(`${this.API_URL}/${token}`);
+  isLoged(): boolean {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken: any = this.decodeToken(token);
+      if (decodedToken && decodedToken.exp) {
+        const currentTime = Math.floor(new Date().getTime() / 1000);
+        if (decodedToken.exp > currentTime) {
+          return true;
+        } else {
+          this.logout();
+          return false;
+        }
+      }
+    }
+    return false;
   }
 
-  isLoged() {
-    if (localStorage.getItem('token')) {
-      /* console.log("Is loged") */
-      return true;
-    } else {
-      /* console.log("Isn't loged") */
-      return false;
+  decodeToken(token: string): any {
+    try {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join('')
+      );
+      return JSON.parse(jsonPayload);
+    } catch (error) {
+      console.error('Error decodificando el token', error);
+      return null;
     }
   }
 
-  // Consumir esta func en el botón de Logout
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
     this.toastrService.info('Sesión cerrada');
-    this.router.navigate(['/login']); //Redirigir al Login
+    this.router.navigate(['/']);
+  }
+
+  getRole(): string | null {
+    return localStorage.getItem('role');
   }
 }

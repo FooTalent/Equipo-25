@@ -3,8 +3,8 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: rgba(255, 255, 255, 0.5); /* Color semitransparente */
-  background-blend-mode: overlay; /* Superpone el color con la imagen */
+  background-color: rgba(255, 255, 255, 0.5);
+  background-blend-mode: overlay;
   padding-bottom: 35px;
 }
 
@@ -13,13 +13,13 @@
   margin: auto;
   display: grid;
   padding-top: 50px;
-  grid-template-columns: 1fr 1fr 1fr; /* Tres columnas iguales */
-  grid-template-rows: auto auto auto; /* Tres filas automáticas */
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto auto;
   grid-template-areas: 
     "primerh2 loginform ."
     ". loginform ."
     ". loginform segundoh2";
-  gap: 20px; /* Espacio entre los elementos */
+  gap: 20px;
 }
 
 .login-grid h2:first-of-type {
@@ -52,19 +52,19 @@
   width: 100%;
   padding: 10px;
   margin-top: 10px;
-  background-color: #022C5E; /* Color de fondo */
-  color: white; /* Color de texto */
-  border: none; /* Remover borde por defecto */
-  border-radius: 5px; /* Bordes redondeados */
-  cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+  background-color: #022C5E;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 #login-form input[type="submit"]:hover {
-  background-color: #03488F; /* Color más claro en hover (opcional) */
+  background-color: #03488F;
 }
 
 .login-grid h5, .login-grid h6 {
-  grid-column: 1 / -1; /* Ocupa todo el ancho de la grid */
+  grid-column: 1 / -1;
   text-align: center;
 }
 

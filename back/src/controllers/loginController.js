@@ -1,43 +1,57 @@
 import bcryptjs from "bcryptjs";
 import { generateToken, verifyToken } from "../helpers/tokenGeneratorFunc.js";
 import userModel from "../models/userModel.js";
-//import { decode } from "jsonwebtoken";
 
 const loginController = {
   login: async (sol, req) => {
     try {
-      const { email, password } = sol.body; // Destructuración objeto
-      const foundUser = await userModel.findOne({
-        email: email,
-      });
+      const { email, password } = sol.body; // Aseguramos la destructuración correcta de los datos
+
+      // Buscamos si el usuario existe
+      const foundUser = await userModel.findOne({ email });
+
+      if (!foundUser) {
+        return req.status(404).json({
+          state: "Error",
+          message: "User not found",
+          data: null,
+        });
+      }
+
+      // Comparamos la contraseña proporcionada con la almacenada (hasheada)
       const validPassword = await bcryptjs.compare(
         password,
         foundUser.password
       );
+
       if (validPassword) {
+        // Generamos el token si la autenticación fue exitosa
         const token = await generateToken({
           id: foundUser._id,
           name: foundUser.name,
           role: foundUser.role,
           state: foundUser.state,
         });
-        req.json({
+
+        return req.status(200).json({
           state: "Successful",
-          mesage: "Access allowed",
+          message: "Access allowed",
           data: token,
         });
       } else {
-        req.json({
+        // Si la contraseña es incorrecta
+        return req.status(401).json({
           state: "Error",
-          mesage: "Access denied",
+          message: "Invalid password",
           data: null,
         });
       }
     } catch (error) {
-      req.json({
+      // Capturamos cualquier error inesperado
+      return req.status(500).json({
         state: "Error",
-        mesage: "Error login",
-        data: error,
+        message: "Server error during login",
+        data: error.message,
       });
     }
   },
@@ -46,25 +60,25 @@ const loginController = {
     try {
       const token = sol.params.token;
       const decoded = await verifyToken(token);
-      //console.log("DECODED DATA: ", decoded); // Comment
+
       if (decoded.id) {
-        req.json({
+        return req.status(200).json({
           state: "Successful",
-          mesage: "Valid token",
+          message: "Valid token",
           data: decoded,
         });
       } else {
-        req.json({
+        return req.status(401).json({
           state: "Error",
-          mesage: "Invalid token",
+          message: "Invalid token",
           data: null,
         });
       }
     } catch (error) {
-      req.json({
+      return req.status(500).json({
         state: "Error",
-        mesage: "Error validating token",
-        data: error,
+        message: "Error validating token",
+        data: error.message,
       });
     }
   },

@@ -1,8 +1,6 @@
 img {
     height: 140px;
     margin-left: 16px;
-    margin-top: -15px;
-    margin-bottom: -15px;
     cursor: pointer;
     object-fit: contain;
   }

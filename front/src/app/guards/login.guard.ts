@@ -9,7 +9,7 @@ export const loginGuard: CanActivateFn = (route, state) => {
   if (loginService.isLoged()) {
     return true;
   } else {
-    router.navigateByUrl('/login');
+    router.navigateByUrl('/'); // Si no está autenticado, redirige al login
     return false;
   }
 };

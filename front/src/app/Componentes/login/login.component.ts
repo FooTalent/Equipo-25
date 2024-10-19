@@ -6,14 +6,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-//import { JwtHelperService } from "@auth0/angular-jwt";
 import { ToastrService } from 'ngx-toastr';
 import { LoginCredentials } from '../../interfaces/login-credentials';
 import { LoginService } from '../../services/login.service';
 import { FooterComponent } from '../footer/footer.component';
 import { HederComponent } from '../header/heder.component';
-
-//const jwtHelperService = new JwtHelperService();
 
 @Component({
   selector: 'app-login',
@@ -38,28 +35,53 @@ export class LoginComponent {
       const password = this.loginCredentialsData.value.password;
 
       if (typeof email === 'string' && typeof password === 'string') {
-        const credentials: LoginCredentials = {
-          email,
-          password,
-        };
-        this.loginService.login(credentials).subscribe((res: any) => {
-          // any porque si no hacemos el Backend no sabemos qué vendrá de él
-          //console.log('Response: ', res);
-          //const decoded = jwtHelperService.decodeToken(res.data.token);
-          //console.log("decoded: ", decoded);
-          if (res.state === 'Successful') {
-            localStorage.setItem('token', res.data.token);
-            this.toastrService.success('Sesión iniciada');
-            //this.router.navigateByUrl('/home'); // Redirigir Way_1
-          } else {
-            //console.log("Invalid credentials")
-            this.toastrService.error('Credenciales inválidas');
+        const credentials: LoginCredentials = { email, password };
+
+        this.loginService.login(credentials).subscribe(
+          (res: any) => {
+            if (res.state === 'Successful') {
+              localStorage.setItem('token', res.data.token);
+
+              const decodedToken: any = this.loginService.decodeToken(
+                res.data.token
+              );
+
+              // Verificar el campo "state" del usuario
+              if (decodedToken && decodedToken.state) {
+                localStorage.setItem('role', decodedToken.role);
+
+                // Redirigir según el rol del usuario
+                switch (decodedToken.role) {
+                  case 'admin':
+                    this.router.navigateByUrl('/home');
+                    break;
+                  case 'accountant':
+                    this.router.navigateByUrl('/storage');
+                    break;
+                  case 'superAdmin':
+                    this.router.navigateByUrl('/user-list');
+                    break;
+                  default:
+                    this.toastrService.error('Rol no válido');
+                }
+              } else {
+                // Si el state es false, no permitir acceso
+                this.toastrService.warning(
+                  'Su cuenta está deshabilitada. Contacte al administrador.'
+                );
+              }
+            } else {
+              this.toastrService.error(res.mesage || 'Credenciales inválidas');
+            }
+          },
+          (error) => {
+            console.error('Error en la petición de login:', error);
+            this.toastrService.error('Credenciales incorrectas');
           }
-        });
+        );
       }
     } else {
-      //console.log("Empty form filds");
-      this.toastrService.warning('Campo de credenciales vacío');
+      this.toastrService.warning('Campos de credenciales vacíos');
     }
   }
 }
