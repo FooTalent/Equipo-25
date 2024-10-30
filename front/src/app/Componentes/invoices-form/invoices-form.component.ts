@@ -89,7 +89,7 @@ export class InvoicesFormComponent implements OnChanges {
   // Detectar los cambios en @Input (factura) y rellenar el formulario
   ngOnChanges(changes: SimpleChanges) {
     if (changes['invoice'] && this.invoice) {
-      console.log('Factura recibida para edición:', this.invoice);
+      //console.log('Factura recibida para edición:', this.invoice);
       this.patchFormWithInvoiceData(this.invoice);
     }
   }
@@ -121,10 +121,7 @@ export class InvoicesFormComponent implements OnChanges {
       supplier: invoice.supplier || '',
     });
 
-    console.log(
-      'Formulario rellenado con los datos de la factura:',
-      this.invoiceForm.value
-    );
+    //console.log('Formulario rellenado con los datos de la factura:',this.invoiceForm.value);
   }
 
   // Método para manejar el envío del formulario
@@ -169,7 +166,7 @@ export class InvoicesFormComponent implements OnChanges {
       this.isUploadingComprobante = true; // Mostrar spinner de comprobante
       this.storageService.uploadFile(this.selectedComprobanteFile).subscribe({
         next: (response) => {
-          console.log('Comprobante subido exitosamente:', response);
+          //console.log('Comprobante subido exitosamente:', response);
           invoiceData.url = response.url;
           this.processInvoiceSubmission(invoiceData); // Llamar al método para enviar el JSON con la URL del archivo
         },
@@ -187,7 +184,7 @@ export class InvoicesFormComponent implements OnChanges {
       this.isUploadingInvoice = true; // Mostrar spinner de factura
       this.storageService.uploadFile(this.selectedInvoiceFile).subscribe({
         next: (response) => {
-          console.log('Factura subida exitosamente:', response);
+          //console.log('Factura subida exitosamente:', response);
           invoiceData.url = response.url;
           this.processInvoiceSubmission(invoiceData); // Llamar al método para enviar el JSON con la URL del archivo
         },
@@ -209,7 +206,7 @@ export class InvoicesFormComponent implements OnChanges {
   processInvoiceSubmission(invoiceData: any) {
     if (this.invoice) {
       // Si estamos editando, hacemos un PUT
-      console.log('Enviando PUT para actualizar la factura:', invoiceData);
+      //console.log('Enviando PUT para actualizar la factura:', invoiceData);
 
       // Verificar que el ID de la factura esté presente y que no sea nulo
       const invoiceId = this.invoice._id || this.invoice.id;
@@ -231,7 +228,7 @@ export class InvoicesFormComponent implements OnChanges {
             );
           } else {
             this.toastrService.success('Factura actualizada exitosamente.');
-            console.log('Factura actualizada exitosamente', response);
+            //console.log('Factura actualizada exitosamente', response);
             this.formClosed.emit();
           }
         },
@@ -245,7 +242,7 @@ export class InvoicesFormComponent implements OnChanges {
       });
     } else {
       // Si es una nueva factura, hacemos un POST
-      console.log('Enviando POST para crear una nueva factura:', invoiceData);
+      //console.log('Enviando POST para crear una nueva factura:', invoiceData);
 
       this.invoiceService.createInvoice(invoiceData).subscribe({
         next: (response) => {
@@ -256,7 +253,7 @@ export class InvoicesFormComponent implements OnChanges {
             );
           } else {
             this.toastrService.success('Factura creada exitosamente.');
-            console.log('Factura creada exitosamente', response);
+            //console.log('Factura creada exitosamente', response);
             this.formClosed.emit();
           }
         },
@@ -278,7 +275,7 @@ export class InvoicesFormComponent implements OnChanges {
     if (file) {
       this.selectedComprobanteFile = file;
       this.selectedComprobanteFileName = file.name;
-      console.log('Comprobante seleccionado:', file);
+      //console.log('Comprobante seleccionado:', file);
     }
     this.isUploadingComprobante = false; // Ocultar spinner de comprobante después de la selección
   }
@@ -294,7 +291,7 @@ export class InvoicesFormComponent implements OnChanges {
       // Subimos el archivo al backend y extraemos datos del PDF
       this.pdfService.uploadPdf(file).subscribe({
         next: (response) => {
-          console.log('Datos extraídos del PDF:', response);
+          //console.log('Datos extraídos del PDF:', response);
 
           const pdfData = response.data;
 
