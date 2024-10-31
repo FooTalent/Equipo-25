@@ -15,6 +15,7 @@
   </div>
 
   <div class="search-section">
+    <!-- Primera fila con la barra de búsqueda -->
     <input
       type="text"
       placeholder="Buscar comprobante"
@@ -22,24 +23,26 @@
       [(ngModel)]="searchQuery"
       (input)="filterInvoices()"
     />
-    <!-- Selector de fechas para filtrar -->
-    <input
-      type="date"
-      class="date-input"
-      [(ngModel)]="startDate"
-      (change)="filterInvoices()"
-    />
-    <input
-      type="date"
-      class="date-input"
-      [(ngModel)]="endDate"
-      (change)="filterInvoices()"
-    />
 
-    <!-- Botón para mostrar el formulario -->
-    <button class="add-button" (click)="toggleForm()">
-      Ingrese comprobante
-    </button>
+    <!-- Segunda fila con filtros de fecha y botón -->
+    <div class="filters-and-button">
+      <input
+        type="date"
+        class="date-input"
+        [(ngModel)]="startDate"
+        (change)="filterInvoices()"
+      />
+      <input
+        type="date"
+        class="date-input"
+        [(ngModel)]="endDate"
+        (change)="filterInvoices()"
+      />
+
+      <button class="add-button" (click)="toggleForm()">
+        Ingrese comprobante
+      </button>
+    </div>
   </div>
 
   <!-- Mostrar el componente del formulario solo si showForm es true -->
