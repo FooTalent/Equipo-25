@@ -24,7 +24,6 @@ textarea {
   border: 2px solid black;
   border-radius: 8px;
   box-sizing: border-box;
-  
 }
 
 /*Ocultar las flechas de los campos de tipo numer */
@@ -38,7 +37,6 @@ textarea {
   color: red;
 }
 
-/* Estilo del campo de observaciones */
 #observaciones {
   grid-column: 3 / span 2;
   grid-area: observaciones;
@@ -146,7 +144,6 @@ h2 {
 .load-buttons-container button:disabled:hover {
   background-color: #d3d3d3;
 }
-
 
 /* Estilos responsive */
 @media (max-width: 768px) {

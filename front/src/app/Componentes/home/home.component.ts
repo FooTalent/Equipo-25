@@ -32,7 +32,7 @@ export class HomeComponent {
 
     this.invoiceService.getInvoices().subscribe(
       (response) => {
-        console.log('Respuesta del backend:', response);
+       
 
         // Accedemos al array de facturas y lo filtramos
         if (response.data && Array.isArray(response.data)) {
