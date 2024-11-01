@@ -18,7 +18,6 @@ if (!fs.existsSync(destinationPath)) {
 // Configuración de almacenamiento de Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    console.log("Archivo recibido para almacenamiento:", file.originalname); // Log adicional
     cb(null, destinationPath); // Carpeta relativa donde se guarda el archivo
   },
   filename: (req, file, cb) => {

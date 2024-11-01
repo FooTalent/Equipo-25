@@ -73,7 +73,6 @@ const Invoice_controller = {
         error: true,
         message: "An error has occurred while creating the invoice",
       });
-      console.log(error);
     }
   },
 

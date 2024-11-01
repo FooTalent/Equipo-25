@@ -7,13 +7,6 @@
   id="invoice-list-container"
   [class.container-disabled]="showForm || isLoading"
 >
-  <!-- Agregar el loader al inicio -->
-  <div *ngIf="isLoading" class="loader-overlay">
-    <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-  </div>
-
   <div class="search-section">
     <!-- Primera fila con la barra de búsqueda -->
     <input
@@ -45,6 +38,13 @@
     </div>
   </div>
 
+  <!-- Agregar el loader -->
+  <div *ngIf="isLoading" class="loader-overlay">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
   <!-- Mostrar el componente del formulario solo si showForm es true -->
   <div *ngIf="showForm">
     <div class="form-overlay"></div>
@@ -61,7 +61,7 @@
   <table class="invoice-table">
     <thead>
       <tr>
-        <th>Nro Factura</th>
+        <th>Nro. Factura</th>
         <th>Emisión / Vto</th>
         <th>Terceros</th>
         <th>Método de pago</th>
@@ -79,15 +79,17 @@
           {{ element.issue_date | date : "shortDate" }} |
           {{ element.due_date | date : "shortDate" }}
         </td>
-        <td>{{ element.third_party }}</td>
+        <td class="third-party">{{ element.third_party }}</td>
         <td>{{ element.payment_method }}</td>
         <td>{{ element.invoice_type }}</td>
         <td>{{ element.payment_way }}</td>
-        <td>{{ element.paid_value }}</td>
-        <td>{{ element.payment.invoice_total }}</td>
+        <td>{{ element.paid_value | currency : "COP" : "$" : "1.0-0" }}</td>
+        <td>
+          {{ element.payment.invoice_total | currency : "COP" : "$" : "1.0-0" }}
+        </td>
         <td>
           <!-- Botón de editar para abrir el formulario con los datos de la factura -->
-          <button class="edit-button" (click)="openForm(element)">
+          <button class="edit-button icon-button" (click)="openForm(element)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -105,6 +107,14 @@
               />
             </svg>
           </button>
+          <a
+            *ngIf="element.url"
+            [href]="element.url"
+            target="_blank"
+            class="icon-button"
+          >
+            <i class="bi bi-receipt-cutoff"></i>
+          </a>
         </td>
       </tr>
     </tbody>

@@ -143,9 +143,6 @@ const Pdf_controller = {
       resultJson.payment_way =
         text.match(formaPagoRegex)?.[1].trim() || "No encontrado";
 
-      // Imprimir en consola el objeto que se enviará al front
-      console.log("JSON enviado al front:", resultJson);
-
       // Enviar el JSON con los datos extraídos al front-end
       return res.status(200).json({
         result: "Good",
@@ -153,7 +150,6 @@ const Pdf_controller = {
         data: resultJson,
       });
     } catch (error) {
-      console.error("Error processing PDF:", error);
       return res.status(500).json({
         error: true,
         message: "An error occurred while processing the PDF",
