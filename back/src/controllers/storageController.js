@@ -16,8 +16,6 @@ async function createStorage(req, res) {
       return res.status(400).json({ message: "No file uploaded" });
     }
 
-    console.log("Archivo recibido desde el front:", req.file);
-
     // Obtenemos la ruta completa del archivo
     const filePath = req.file.path;
 
@@ -35,20 +33,14 @@ async function createStorage(req, res) {
       unique_filename: false,
     });
 
-    console.log("Archivo subido a Cloudinary:", uploadResult);
-
     // Usamos la URL generada por Cloudinary directamente
     const pdfUrl = uploadResult.url;
-
-    console.log("URL del PDF:", pdfUrl);
 
     // Creamos el documento en la base de datos con la URL generada y el nombre original del archivo
     const newDocument = await storage.create({
       invoiceName: uploadResult.original_filename,
       url: pdfUrl,
     });
-
-    console.log("Documento creado en la base de datos:", newDocument);
 
     // Eliminamos el archivo local después de subirlo a Cloudinary
     fs.unlinkSync(filePath);
@@ -60,7 +52,6 @@ async function createStorage(req, res) {
     });
   } catch (err) {
     res.status(500).json({ error: "Server Error", message: err.message });
-    console.error("Error al subir el archivo a Cloudinary:", err);
   }
 }
 
@@ -71,7 +62,6 @@ async function listStorage(req, res) {
     res.json(documents);
   } catch (err) {
     res.status(500).json({ error: "Server Error", message: err.message });
-    console.error("Error al listar los documentos:", err);
   }
 }
 
@@ -88,7 +78,6 @@ async function listStorageByID(req, res) {
     res.status(200).json(documentRequested);
   } catch (err) {
     res.status(500).json({ error: "Server Error", message: err.message });
-    console.error("Error al obtener el documento:", err);
   }
 }
 
@@ -111,7 +100,6 @@ async function updateStorage(req, res) {
     res.json(documentModified);
   } catch (err) {
     res.status(500).json({ error: "Server Error", message: err.message });
-    console.error("Error al modificar el documento:", err);
   }
 }
 
@@ -128,7 +116,6 @@ async function deleteStorage(req, res) {
     res.json({ message: "Documento eliminado" });
   } catch (err) {
     res.status(500).json({ error: "Server Error", message: err.message });
-    console.error("Error al eliminar el documento:", err);
   }
 }
 

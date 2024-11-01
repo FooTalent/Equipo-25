@@ -22,7 +22,11 @@
   align-items: center;
   padding: 10px 20px;
   flex-wrap: wrap;
+  max-width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 .go-back {
   padding: 5px 20px;
   background-color: #022c5e;
@@ -32,6 +36,7 @@
   cursor: pointer;
   font-size: 1rem;
 }
+
 .header-icon {
   display: flex;
   align-items: center;
@@ -53,15 +58,27 @@
   flex: 1;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
 }
 
-.search-bar {
+.search-bar,
+.date-input {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 20px;
-  width: 100%;
-  max-width: 250px;
   font-size: 14px;
+  flex-grow: 1;
+  min-width: 80px;
+}
+
+.search-bar {
+  max-width: 250px;
+}
+
+.date-input {
+  max-width: 150px;
+  text-align: center;
 }
 
 /* Comprobante items */
@@ -103,6 +120,8 @@
   .search-bar-container {
     width: 100%;
     justify-content: center;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .comprobante-item {
@@ -113,6 +132,10 @@
 
 @media (max-width: 480px) {
   .search-bar {
+    width: 100%;
+  }
+
+  .date-input {
     width: 100%;
   }
 

@@ -28,12 +28,12 @@ img {
   /* Media Query para Pantallas Medianas (Tablet) */
   @media (max-width: 768px) {
     img {
-      height: 100px; /* Ajuste de tamaño en pantallas medianas */
+      height: 100px;
       margin-left: 10px;
     }
   
     .logout-btn {
-      font-size: 18px; /* Reducir tamaño de fuente */
+      font-size: 18px;
       padding-right: 40px;
     }
   }
@@ -46,12 +46,12 @@ img {
     }
   
     img {
-      height: 80px; /* Ajuste de tamaño en pantallas pequeñas */
+      height: 80px;
       margin: 0;
     }
   
     .logout-btn {
-      font-size: 16px; /* Reducir tamaño de fuente */
+      font-size: 16px;
       padding-right: 20px;
     }
   }

@@ -19,9 +19,22 @@
   <div class="search-bar-container">
     <input
       type="search"
-      placeholder="Buscar proveedor"
+      placeholder="Buscar comprobante"
       class="search-bar"
-      (input)="handlesearch()"
+      [(ngModel)]="searchTerm"
+      (input)="filterInvoices()"
+    />
+    <input
+      type="date"
+      class="date-input"
+      [(ngModel)]="startDate"
+      (change)="filterInvoices()"
+    />
+    <input
+      type="date"
+      class="date-input"
+      [(ngModel)]="endDate"
+      (change)="filterInvoices()"
     />
     <button class="go-back" (click)="reloadPage()">
       <i class="bi bi-arrow-left"></i> Volver
@@ -30,9 +43,10 @@
 </div>
 
 <div class="container">
-  @for (element of alls; track $index){
-
-  <div class="comprobante-item">
+  <div
+    *ngFor="let element of filteredAlls; let i = index"
+    class="comprobante-item"
+  >
     <img
       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYxms68hyLV1WhAKeX-azENbc_pK_yjJ8Kbg&s"
       alt="Comprobante Icon"
@@ -41,13 +55,12 @@
     <p>{{ element.invoiceName }}</p>
     <a
       class="download-button"
-      href="{{ element.url }}"
+      [href]="element.url"
       target="_blank"
       rel="noopener noreferrer"
     >
-      <img src="../../../assets/download-solid-24.png" alt="downland icon" />
+      <img src="../../../assets/download-solid-24.png" alt="download icon" />
     </a>
   </div>
-  }
 </div>
 <app-footer></app-footer>

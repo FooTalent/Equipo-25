@@ -5,12 +5,8 @@ import { HederComponent } from '../header/heder.component';
 import { FooterComponent } from '../footer/footer.component';
 import { InvoicesFormComponent } from '../invoices-form/invoices-form.component';
 import { FormsModule } from '@angular/forms';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-storage',
@@ -29,46 +25,54 @@ import {
 })
 export class StorageComponent implements OnInit {
   storage = inject(StorageService);
-  alls: any[] = [];
-  filters: any[] = [];
-  searchForm = new FormGroup({
-    term: new FormControl('', Validators.required),
-  });
-  isLoading = false; // Controla la visibilidad del loader
+  alls: any[] = []; // Lista completa de comprobantes
+  filteredAlls: any[] = []; // Lista filtrada de comprobantes
+  searchTerm: string = '';
+  startDate: string | null = null;
+  endDate: string | null = null;
+  isLoading = false;
+  private router = inject(Router);
 
-  handlesearch() {
-    const filter = this.alls.filter((stg) => {
-      return stg.invoiceName.toLowerCase().includes(this.searchForm.value.term);
-    });
-    console.log(filter);
+  ngOnInit() {
+    this.getstorage();
   }
 
-  // Método para obtener el almacenamiento
   getstorage() {
-    this.isLoading = true; // Mostrar el loader antes de cargar los datos
-
+    this.isLoading = true;
     this.storage.getStorage().subscribe(
       (answer: any) => {
         if (answer) {
           this.alls = answer;
+          this.filteredAlls = this.alls; // Inicialmente, mostrar todos los comprobantes
         } else {
-          console.log('No se encontraron datos');
         }
-        this.isLoading = false; // Ocultar el loader después de obtener los datos
+        this.isLoading = false;
       },
       (error) => {
-        console.error('Error al cargar los datos:', error);
         this.isLoading = false;
       }
     );
   }
 
-  // Inicialización del componente
-  ngOnInit() {
-    this.getstorage();
+  // Método de filtrado de comprobantes
+  filterInvoices() {
+    const searchTermLower = this.searchTerm.toLowerCase().trim();
+    const start = this.startDate ? new Date(this.startDate) : null;
+    const end = this.endDate ? new Date(this.endDate) : null;
+
+    this.filteredAlls = this.alls.filter((element) => {
+      const matchesSearch = element.invoiceName
+        ?.toLowerCase()
+        .includes(searchTermLower);
+      const uploadDate = new Date(element.uploadDate);
+      const matchesDate =
+        (!start || uploadDate >= start) && (!end || uploadDate <= end);
+
+      return matchesSearch && matchesDate;
+    });
   }
 
   reloadPage(): void {
-    window.location.reload(); // Recarga la página actual
+    this.router.navigate(['/home']);
   }
 }
