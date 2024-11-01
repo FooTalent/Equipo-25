@@ -44,3 +44,45 @@ footer {
 .faq-link span {
   font-size: 12px;
 }
+
+@media (max-width: 1040px) {
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer-content p {
+    display: grid;
+    grid-template-columns: 800px;
+  }
+}
+
+@media (max-width: 960px) {
+  .footer-content p {
+    grid-template-columns: 630px;
+  }
+}
+
+@media (max-width: 800px) {
+  .footer-content p {
+    grid-template-columns: 510px;
+  }
+}
+
+@media (max-width: 670px) {
+  .footer-content p {
+    grid-template-columns: 420px;
+  }
+}
+
+@media (max-width: 580px) {
+  .footer-content p {
+    grid-template-columns: 340px;
+  }
+}
+
+@media (max-width: 500px) {
+  .footer-content p {
+    grid-template-columns: 250px;
+  }
+}

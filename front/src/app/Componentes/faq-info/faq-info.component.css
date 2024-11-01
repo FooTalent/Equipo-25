@@ -44,3 +44,9 @@
 
   margin: 0 0 18px;
 }
+
+@media (max-width: 670px) {
+  .faq-questions-grill {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
   FormControl,
@@ -15,7 +16,7 @@ import { HederComponent } from '../header/heder.component';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, HederComponent, FooterComponent],
+  imports: [CommonModule, ReactiveFormsModule, HederComponent, FooterComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -30,6 +31,12 @@ export class LoginComponent {
   });
 
   isLoading: boolean = false;
+
+  isPasswordVisible: boolean = false; // Variable para controlar visibilidad
+
+  togglePasswordVisibility(): void {
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
 
   handleLoginSubmit() {
     if (this.loginCredentialsData.valid) {
