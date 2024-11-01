@@ -16,9 +16,7 @@ async function listSupplierByID(req, res) {
     const supplierID = req.params.id;
     const supplierRequested = await supplier.findById(supplierID);
     res.status(200).json(supplierRequested);
-  } catch (err) {
-    console.error("Error al obtener el proveedor", err);
-  }
+  } catch (err) {}
 }
 
 //Crear un proveedor
@@ -35,7 +33,6 @@ async function createSupplier(req, res) {
     res.json(newSupplier);
   } catch (err) {
     res.status(500).json({ error: "Server Error", message: err.message });
-    console.error("Error al crear el proveedor:", err);
   }
 }
 
@@ -66,7 +63,6 @@ async function deleteSupplier(req, res) {
     res.json("Supplier deleted");
   } catch (err) {
     res.status(500).json({ error: "Server Error", message: err.message });
-    console.error("Error al eliminar el proveedor:", err);
   }
 }
 
