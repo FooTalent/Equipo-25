@@ -6,13 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UsersService {
-  API_URL = 'http://localhost:3000/users'; // URL del backend
+  API_URL = 'http://localhost:3000/users';
 
   constructor(private http: HttpClient) {}
 
   // Método para crear un nuevo usuario
   createUser(userData: any): Observable<any> {
-    return this.http.post(this.API_URL, userData); // Enviar los datos como JSON
+    return this.http.post(this.API_URL, userData);
   }
 
   // Método para obtener todos los usuarios
