@@ -38,8 +38,13 @@
       alt="Comprobante Icon"
       class="comprobante-icon"
     />
-    <p>{{ element._id }}</p>
-    <a class="download-button" href="{{ element.url }}">
+    <p>{{ element.invoiceName }}</p>
+    <a
+      class="download-button"
+      href="{{ element.url }}"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <img src="../../../assets/download-solid-24.png" alt="downland icon" />
     </a>
   </div>

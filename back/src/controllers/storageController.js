@@ -1,7 +1,7 @@
 import storage from "../models/storageModel.js";
-import cloudinary from "../connectionDB.js"; // Configuración de Cloudinary
-import fs from "fs"; // Para eliminar archivos después de subirlos a Cloudinary
-import path from "path"; // Para manejar rutas y nombres de archivo
+import cloudinary from "../connectionDB.js";
+import fs from "fs"; // Libreria ara eliminar archivos después de subirlos a Cloudinary
+import path from "path"; // Libreria para manejar rutas y nombres de archivo
 
 // Función para sanitizar el nombre del archivo
 function sanitizeFileName(filename) {
@@ -23,37 +23,29 @@ async function createStorage(req, res) {
 
     // Obtenemos el nombre original del archivo y lo sanitizamos
     let originalFileName = req.file.originalname;
-    originalFileName = path.parse(originalFileName).name; // Elimina la extensión
+    originalFileName = path.parse(originalFileName).name; // para eliminar la extensión
     const sanitizedFileName = sanitizeFileName(originalFileName);
 
     // Subimos el archivo a Cloudinary como PDF, especificando el public_id
     const uploadResult = await cloudinary.uploader.upload(filePath, {
-      resource_type: "raw", // Especificamos que es un archivo raw (PDF)
-      folder: "facturas", // Carpeta en Cloudinary
-      public_id: sanitizedFileName, // Usamos el nombre original del archivo
-      use_filename: true, // Usa el nombre del archivo
-      unique_filename: false, // Para que no agregue caracteres adicionales
+      resource_type: "raw",
+      folder: "facturas",
+      public_id: sanitizedFileName,
+      use_filename: true,
+      unique_filename: false,
     });
 
     console.log("Archivo subido a Cloudinary:", uploadResult);
 
-    // Generamos la URL del PDF con el flag 'inline'
-    const pdfPublicId = uploadResult.public_id;
-
-    const pdfUrl = cloudinary.url(pdfPublicId, {
-      resource_type: "raw",
-      type: "upload",
-      secure: true,
-      flags: "inline", // Especificamos el flag 'inline' para visualizar en línea
-    });
+    // Usamos la URL generada por Cloudinary directamente
+    const pdfUrl = uploadResult.url;
 
     console.log("URL del PDF:", pdfUrl);
 
-    // Creamos el documento en la base de datos con la URL generada
+    // Creamos el documento en la base de datos con la URL generada y el nombre original del archivo
     const newDocument = await storage.create({
-      thirdParty: req.body.thirdParty,
-      invoiceName: req.body.invoiceName,
-      url: pdfUrl, // Usamos la URL generada con el flag 'inline'
+      invoiceName: uploadResult.original_filename,
+      url: pdfUrl,
     });
 
     console.log("Documento creado en la base de datos:", newDocument);
@@ -64,7 +56,7 @@ async function createStorage(req, res) {
     // Respondemos con la URL al frontend
     res.json({
       message: "File uploaded successfully",
-      url: pdfUrl, // Enviamos la URL al frontend para que se use después
+      url: pdfUrl,
     });
   } catch (err) {
     res.status(500).json({ error: "Server Error", message: err.message });
