@@ -23,7 +23,15 @@
   padding: 10px 20px;
   flex-wrap: wrap;
 }
-
+.go-back {
+  padding: 5px 20px;
+  background-color: #022c5e;
+  border-radius: 20px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
 .header-icon {
   display: flex;
   align-items: center;

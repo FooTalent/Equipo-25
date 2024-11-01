@@ -4,8 +4,8 @@
   <div class="header-icon">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="64"
-      height="64"
+      width="32"
+      height="32"
       fill="currentColor"
       class="bi bi-database"
       viewBox="0 0 16 16"
@@ -17,7 +17,15 @@
     <span class="Almacen">Almacen de comprobantes</span>
   </div>
   <div class="search-bar-container">
-    <input type="text" placeholder="Buscar proveedor" class="search-bar" />
+    <input
+      type="search"
+      placeholder="Buscar proveedor"
+      class="search-bar"
+      (input)="handlesearch()"
+    />
+    <button class="go-back" (click)="reloadPage()">
+      <i class="bi bi-arrow-left"></i> Volver
+    </button>
   </div>
 </div>
 
