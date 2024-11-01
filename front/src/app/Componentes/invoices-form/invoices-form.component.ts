@@ -81,7 +81,7 @@ export class InvoicesFormComponent implements OnChanges {
       },
       error: (error) => {
         this.toastrService.error('Error al cargar los proveedores');
-        console.error('Error al cargar los proveedores:', error);
+        
       },
     });
   }
@@ -89,7 +89,7 @@ export class InvoicesFormComponent implements OnChanges {
   // Detectar los cambios en @Input (factura) y rellenar el formulario
   ngOnChanges(changes: SimpleChanges) {
     if (changes['invoice'] && this.invoice) {
-      console.log('Factura recibida para edición:', this.invoice);
+      
       this.patchFormWithInvoiceData(this.invoice);
     }
   }
@@ -245,7 +245,7 @@ export class InvoicesFormComponent implements OnChanges {
       });
     } else {
       // Si es una nueva factura, hacemos un POST
-      console.log('Enviando POST para crear una nueva factura:', invoiceData);
+   
 
       this.invoiceService.createInvoice(invoiceData).subscribe({
         next: (response) => {
@@ -278,7 +278,7 @@ export class InvoicesFormComponent implements OnChanges {
     if (file) {
       this.selectedComprobanteFile = file;
       this.selectedComprobanteFileName = file.name;
-      console.log('Comprobante seleccionado:', file);
+     
     }
     this.isUploadingComprobante = false; // Ocultar spinner de comprobante después de la selección
   }
@@ -294,7 +294,7 @@ export class InvoicesFormComponent implements OnChanges {
       // Subimos el archivo al backend y extraemos datos del PDF
       this.pdfService.uploadPdf(file).subscribe({
         next: (response) => {
-          console.log('Datos extraídos del PDF:', response);
+         
 
           const pdfData = response.data;
 
@@ -327,9 +327,7 @@ export class InvoicesFormComponent implements OnChanges {
             rte_ica: parseCurrencyValue(pdfData.rte_ica),
           });
         },
-        error: (error) => {
-          console.error('Error al cargar el PDF:', error);
-        },
+       
         complete: () => {
           this.isUploadingInvoice = false; // Ocultar spinner de factura al terminar
         },
