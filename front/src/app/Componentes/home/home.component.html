@@ -108,7 +108,6 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Iteramos sobre las facturas -->
           <tr *ngFor="let invoice of invoices">
             <td>{{ invoice.invoice }}</td>
             <td>{{ invoice.third_party }}</td>
@@ -123,7 +122,13 @@
               }}
             </td>
             <td>{{ invoice.invoice_status }}</td>
-            <td class="icon-center"><i class="bi bi-file-text"></i></td>
+            <td class="icon-center">
+              <!-- Verifica si el URL existe antes de mostrar el enlace -->
+              <a *ngIf="invoice.url" [href]="invoice.url" target="_blank">
+                <i class="bi bi-file-text"></i>
+              </a>
+              <i *ngIf="!invoice.url" class="bi bi-file-text disabled-icon"></i>
+            </td>
           </tr>
         </tbody>
       </table>

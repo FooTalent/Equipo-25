@@ -17,7 +17,7 @@
   color: black;
   transition: color 0.3s ease;
   text-align: center;
-  flex: 1 1 30%; /* Ocupa el 30% en pantallas grandes */
+  flex: 1 1 30%;
   min-width: 250px;
   max-width: 400px;
 }
@@ -27,7 +27,7 @@
 }
 
 .function-selector:hover {
-  color: #0d6efd; /* Color de hover */
+  color: #0d6efd;
 }
 
 .function-selector.active {
@@ -80,6 +80,13 @@ td.date-center {
 
 td.icon-center i {
   font-size: 22px;
+  color: black;
+}
+
+/* Icono deshabilitado */
+.disabled-icon {
+  color: #ccc;
+  cursor: not-allowed;
 }
 
 /* Loader */
