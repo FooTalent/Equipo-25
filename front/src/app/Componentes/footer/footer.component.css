@@ -44,40 +44,51 @@ footer {
   font-size: 12px;
 }
 
-/* Media Query para Pantallas Medianas (Tablet) */
-@media (max-width: 768px) {
+@media (max-width: 1040px) {
   .footer-content {
-    flex-direction: column; /* Cambiar a columna en pantallas medianas */
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    text-align: center;
   }
-
-  .faq-link {
-    position: static;
-    transform: none;
-    margin-top: 10px;
-  }
-
-  .faq-link .help-icon {
-    width: 40px; /* Ajustar tamaño del ícono */
-  }
-
-  .faq-link span {
-    font-size: 14px; /* Aumentar tamaño de fuente */
+  .footer-content p {
+    display: grid;
+    grid-template-columns: 800px;
   }
 }
 
-/* Media Query para Pantallas Pequeñas (Móviles) */
-@media (max-width: 480px) {
+@media (max-width: 960px) {
   .footer-content p {
-    font-size: 12px; /* Reducir tamaño de fuente en dispositivos móviles */
+    grid-template-columns: 630px;
   }
+}
 
-  .faq-link .help-icon {
-    width: 35px; /* Ajuste de tamaño del ícono */
+@media (max-width: 800px) {
+  .footer-content p {
+    grid-template-columns: 510px;
   }
+}
 
-  .faq-link span {
+@media (max-width: 670px) {
+  .footer-content p {
+    grid-template-columns: 420px;
+  }
+}
+
+@media (max-width: 580px) {
+  .footer-content p {
+    grid-template-columns: 340px;
+  }
+}
+
+@media (max-width: 500px) {
+  .footer-content p {
+    grid-template-columns: 250px;
+  }
+}
+
+@media (max-width: 420px) {
+  .footer-content p {
+    grid-template-columns: 200px;
     font-size: 12px;
   }
 }
