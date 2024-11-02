@@ -86,3 +86,10 @@ footer {
     grid-template-columns: 250px;
   }
 }
+
+@media (max-width: 420px) {
+  .footer-content p {
+    grid-template-columns: 200px;
+    font-size: 12px;
+  }
+}
