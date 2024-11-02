@@ -16,17 +16,18 @@
     </svg>
     <span class="Almacen">Almacen de comprobantes</span>
   </div>
-  <div class="search-bar-container">
+  <form [formGroup]="searchForm" class="search-bar-container">
     <input
       type="search"
       placeholder="Buscar proveedor"
       class="search-bar"
       (input)="handlesearch()"
+      formControlName="term"
     />
     <button class="go-back" (click)="reloadPage()">
       <i class="bi bi-arrow-left"></i> Volver
     </button>
-  </div>
+  </form>
 </div>
 
 <div class="container">

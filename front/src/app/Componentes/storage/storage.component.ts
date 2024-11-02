@@ -11,6 +11,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-storage',
@@ -37,10 +38,23 @@ export class StorageComponent implements OnInit {
   isLoading = false; // Controla la visibilidad del loader
 
   handlesearch() {
-    const filter = this.alls.filter((stg) => {
-      return stg.invoiceName.toLowerCase().includes(this.searchForm.value.term);
+    const searchTerm = this.searchForm.value.term?.toLowerCase();
+
+    const filtered = this.alls.filter((element) => {
+      // Verificamos que invoiceName esté definido y que contenga el término de búsqueda
+      return (
+        element.invoiceName &&
+        element.invoiceName.toLowerCase().includes(searchTerm)
+      );
     });
-    console.log(filter);
+
+    // Si hay resultados, los mostramos; si no, volvemos a mostrar todos los datos iniciales
+
+    if (filtered.length > 0) {
+      this.alls = filtered;
+    } else {
+      this.filters;
+    }
   }
 
   // Método para obtener el almacenamiento
