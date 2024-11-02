@@ -13,7 +13,7 @@
   margin: auto;
   display: grid;
   padding-top: 50px;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto auto auto;
   grid-template-areas:
     "primerh2 loginform ."
@@ -33,6 +33,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 400px;
 }
 
 .login-grid h2:last-of-type {
@@ -89,6 +90,47 @@ form {
   border-radius: 35px;
 }
 
+.password-div {
+  display: grid;
+  grid-template-columns: repeat(10 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-areas:
+    "input-password input-password input-password input-password input-password input-password input-password input-password input-password ."
+    "input-password input-password input-password input-password input-password input-password input-password input-password input-password eye"
+    "input-password input-password input-password input-password input-password input-password input-password input-password input-password .";
+}
+
+.input-password {
+  grid-area: input-password;
+}
+
+.password-eye {
+  grid-area: eye;
+  transform: translatex(40%);
+}
+
 .spinner {
   margin: 10px 15px 20px 0px;
+}
+
+@media screen and (max-width: 840px) {
+  #login-form {
+    width: 100%;
+  }
+  .login-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas:
+      "primerh2"
+      "loginform"
+      "loginform"
+      "segundoh2";
+    margin: 0 20% 0 20%;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .login-grid {
+    margin: 0 12% 0 12%;
+  }
 }
