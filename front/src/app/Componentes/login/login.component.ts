@@ -89,7 +89,6 @@ export class LoginComponent {
           },
           (error) => {
             this.isLoading = false;
-            console.error('Error en la petición de login:', error);
             this.toastrService.error('Credenciales incorrectas');
           }
         );

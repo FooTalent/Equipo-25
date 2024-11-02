@@ -11,12 +11,9 @@ mongoose
     "mongodb+srv://JuanArz2:...@juanarz2cluster.mvlnjui.mongodb.net/ContaCol?retryWrites=true&w=majority&appName=JuanArz2Cluster"
   )
   .then((data) => {
-    console.log("Success conecting MongoDB");
+    console.log("Success conecting DB");
   })
-  .catch((error) => {
-    console.log("Error conecting MongoDB");
-    console.log(error);
-  });
+  .catch((error) => {});
 
 // Cloudinary DB connection
 cloudinary.config({
