@@ -11,7 +11,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { filter } from 'rxjs';
+import filter from 'rxjs';
 
 @Component({
   selector: 'app-storage',
@@ -32,12 +32,17 @@ export class StorageComponent implements OnInit {
   storage = inject(StorageService);
   alls: any[] = [];
   filters: any[] = [];
+  resoult: any[] = [];
   searchForm = new FormGroup({
     term: new FormControl('', Validators.required),
   });
   isLoading = false; // Controla la visibilidad del loader
 
   handlesearch() {
+    console.log('busca', this.searchForm.value.term);
+    console.log(this.resoult);
+    console.log(this.alls);
+
     const searchTerm = this.searchForm.value.term?.toLowerCase();
 
     const filtered = this.alls.filter((element) => {
@@ -52,8 +57,13 @@ export class StorageComponent implements OnInit {
 
     if (filtered.length > 0) {
       this.alls = filtered;
+      console.log('2', filtered.length);
     } else {
-      this.filters;
+      this.alls = this.resoult;
+      console.log(this.alls);
+      if (this.alls.length < 1) {
+        this.resoult;
+      }
     }
   }
 
@@ -65,6 +75,7 @@ export class StorageComponent implements OnInit {
       (answer: any) => {
         if (answer) {
           this.alls = answer;
+          this.resoult = answer;
         } else {
           console.log('No se encontraron datos');
         }
